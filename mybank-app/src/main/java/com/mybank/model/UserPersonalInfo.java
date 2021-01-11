@@ -19,10 +19,10 @@ public class UserPersonalInfo {
 		super();
 	}
 
-	public UserPersonalInfo(int userId, String firstName, String lastName, Date birthDate, String email,
+	public UserPersonalInfo(/*int userId,*/ String firstName, String lastName, Date birthDate, String email,
 			String phoneNumber, int countryId, String homeAddress, String homeCity, String homeState, String homeZipCode) {
 		super();
-		this.userId = userId;
+		/*this.userId = userId;*/
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;

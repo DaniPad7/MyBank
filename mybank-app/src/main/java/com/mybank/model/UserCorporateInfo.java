@@ -10,9 +10,9 @@ public class UserCorporateInfo {
 		super();
 	}
 
-	public UserCorporateInfo(int userId, boolean isEmployee, String username, String password) {
+	public UserCorporateInfo(/*int userId,*/ boolean isEmployee, String username, String password) {
 		super();
-		this.userId = userId;
+		/*this.userId = userId;*/
 		this.isEmployee = isEmployee;
 		this.username = username;
 		this.password = password;
