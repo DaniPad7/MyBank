@@ -1,4 +1,4 @@
-package com.mybank.dao;
+package com.mybank.service;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import com.mybank.model.UserAccountInfo;
 import com.mybank.model.UserCorporateInfo;
 import com.mybank.model.UserPersonalInfo;
 
-public interface AccountReadDAO {
+public interface AccountReadService {
 	
 	public UserPersonalInfo userLogin(String username, String password) throws BusinessException;
 	public UserCorporateInfo userGetCorporateInfoIsEmployee(String username, String password) throws BusinessException;

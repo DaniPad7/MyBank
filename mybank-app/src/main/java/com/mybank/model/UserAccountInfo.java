@@ -1,5 +1,7 @@
 package com.mybank.model;
 
+import java.util.Random;
+
 public class UserAccountInfo {
 	private int userId;
 	private String accountType;
@@ -51,6 +53,10 @@ public class UserAccountInfo {
 	}
 
 
+	public void setAccountNumber() {
+		Random rand = new Random();
+		accountNumber = rand.nextInt(1_000_000);
+	}
 	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}

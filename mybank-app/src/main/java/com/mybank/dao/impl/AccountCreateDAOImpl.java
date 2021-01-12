@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import com.mybank.dao.AccountCreateDAO;
 import com.mybank.dao.dbutil.PostgresqlConnection;
 import com.mybank.exception.BusinessException;
+import com.mybank.model.UserAccountInfo;
 import com.mybank.model.UserCorporateInfo;
 import com.mybank.model.UserPersonalInfo;
 
@@ -52,6 +53,7 @@ public class AccountCreateDAOImpl implements AccountCreateDAO{
 			
 			c = preparedStatement.executeUpdate();
 			c0 = preparedStatement0.executeUpdate();
+			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
 			log.info(e);
 			throw new BusinessException("You are already registered with us. Internal error occured in IMPL");
@@ -60,9 +62,27 @@ public class AccountCreateDAOImpl implements AccountCreateDAO{
 	}
 
 	@Override
-	public void openNewAcc() throws BusinessException {
-		// TODO Auto-generated method stub
-		
+	public int openNewAcc(UserPersonalInfo userPersonalInfoRead, UserAccountInfo userAccountInfo) throws BusinessException {
+		userAccountInfo.setAccountNumber();
+		log.info(userAccountInfo.getAccountType());
+		int c = 0;
+		try {
+			Connection connection = PostgresqlConnection.getConnection();
+			String sql1 = "INSERT INTO mybank.user_account_info(user_id, account_type, account_number, routing_number, balance,  is_approved) VALUES(?,?,?,DEFAULT,?::float8::numeric::money,false);"; 
+			PreparedStatement preparedStatement = connection.prepareStatement(sql1);
+			
+			preparedStatement.setInt(1, userPersonalInfoRead.getUserId());
+			preparedStatement.setString(2, userAccountInfo.getAccountType());
+			preparedStatement.setInt(3, userAccountInfo.getAccountNumber());
+			preparedStatement.setDouble(4, userAccountInfo.getBalance());
+			
+			c = preparedStatement.executeUpdate();
+			connection.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			log.info(e);
+			throw new BusinessException("The account already exists. Internal error occured in IMPL");
+		}
+		return c ;
 	}
 
 	
