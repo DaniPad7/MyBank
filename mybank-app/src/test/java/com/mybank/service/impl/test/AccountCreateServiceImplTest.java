@@ -91,7 +91,7 @@ class AccountCreateServiceImplTest {
 
 	@Test
 	void testWithdrawOrDepositForEquals1DueToEmptyString() {
-		userBankHistory = new UserBankHistory(4, 45, 45, "", 49.99);
+		userBankHistory = new UserBankHistory(4, 45, 45, "", 49.99, true);
 		userAccountInfo = new UserAccountInfo(23, "Checkings", 545544, 23, 123.99, false);
 		try {
 			assertEquals(1,accountCreateServiceImpl.withdrawOrDeposit(userBankHistory, userAccountInfo));
@@ -106,7 +106,7 @@ class AccountCreateServiceImplTest {
 
 			@Override
 			public void execute() throws Throwable {
-				userBankHistory = new UserBankHistory(4, 56, 56, "Withdraw", 200.00);
+				userBankHistory = new UserBankHistory(4, 56, 56, "Withdraw", 200.00, true);
 				userAccountInfo = new UserAccountInfo(23, "Checkings", 545544, 23, 123.99, false);
 				
 			}

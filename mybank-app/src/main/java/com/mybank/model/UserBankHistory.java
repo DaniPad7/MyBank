@@ -6,18 +6,20 @@ public class UserBankHistory {
 	private int routingNumberDest;
 	private String transactionType;
 	private double amount;
+	private boolean isAccepted;
 	
 	public UserBankHistory() {
 		super();
 	}
 	
-	public UserBankHistory(int userId, int routingNumber, int routingNumberDest, String transactionType, double amount) {
+	public UserBankHistory(int userId, int routingNumber, int routingNumberDest, String transactionType, double amount, boolean isAccepted) {
 		super();
 		this.userId = userId;
 		this.routingNumber = routingNumber;
 		this.routingNumberDest = routingNumberDest;
 		this.transactionType = transactionType;
 		this.amount = amount;
+		this.isAccepted = isAccepted;
 	}
 
 	public int getUserId() {
@@ -62,6 +64,12 @@ public class UserBankHistory {
 
 	public void setUserId(double amount) {
 		this.amount = amount;
+	}
+	public void setAccepted(boolean isAccepted) {
+		this.isAccepted = isAccepted;
+	}
+	public boolean getIsAccepted() {
+		return isAccepted;
 	}
 
 	@Override

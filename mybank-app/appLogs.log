@@ -1,1 +1,140 @@
 
+{INFO}  com.mybank.main.MyBankMain ___________Hello, Welcome to MyBank__________________ 2021-Jan-13 Wednesday PST 08:37:50 
+{INFO}  com.mybank.main.MyBankMain What would you like to do today... 2021-Jan-13 Wednesday PST 08:37:50 
+{INFO}  com.mybank.main.MyBankMain Login Or Sign Up 2021-Jan-13 Wednesday PST 08:37:50 
+{INFO}  com.mybank.main.MyBankMain 1) Login 2021-Jan-13 Wednesday PST 08:37:50 
+{INFO}  com.mybank.main.MyBankMain 2) Sign Up 2021-Jan-13 Wednesday PST 08:37:50 
+{INFO}  com.mybank.main.MyBankMain 56) Exit 2021-Jan-13 Wednesday PST 08:37:50 
+{INFO}  com.mybank.main.MyBankMain _____________________Login____________________ 2021-Jan-13 Wednesday PST 08:37:53 
+{INFO}  com.mybank.main.MyBankMain 1) Enter information 2021-Jan-13 Wednesday PST 08:37:53 
+{INFO}  com.mybank.main.MyBankMain 67) Back 2021-Jan-13 Wednesday PST 08:37:53 
+{INFO}  com.mybank.main.MyBankMain Please enter your username:  2021-Jan-13 Wednesday PST 08:37:54 
+{INFO}  com.mybank.main.MyBankMain Please enter your password:  2021-Jan-13 Wednesday PST 08:37:57 
+{INFO}  com.mybank.main.MyBankMain Hello danile! As a customer, what would you like to do today.  2021-Jan-13 Wednesday PST 08:37:59 
+{INFO}  com.mybank.main.MyBankMain 1) Open A New Account 2021-Jan-13 Wednesday PST 08:37:59 
+{INFO}  com.mybank.main.MyBankMain 2) Retrieve Account Information 2021-Jan-13 Wednesday PST 08:37:59 
+{INFO}  com.mybank.main.MyBankMain 3) Withdraw/Deposit 2021-Jan-13 Wednesday PST 08:37:59 
+{INFO}  com.mybank.main.MyBankMain 4) Transfer Account Balance 2021-Jan-13 Wednesday PST 08:37:59 
+{INFO}  com.mybank.main.MyBankMain 5) Accept/Reject Transfer 2021-Jan-13 Wednesday PST 08:37:59 
+{INFO}  com.mybank.main.MyBankMain 52) Sign Out 2021-Jan-13 Wednesday PST 08:37:59 
+{INFO}  com.mybank.main.MyBankMain In order to Withdraw or Deposit, enter your password again:  2021-Jan-13 Wednesday PST 08:38:07 
+{INFO}  com.mybank.main.MyBankMain Your approved accounts are printed below: 2021-Jan-13 Wednesday PST 08:38:10 
+{INFO}  com.mybank.main.MyBankMain UserAccountInfo [ID: 6, Account: Checkings, Account Number: 17274, Routing Number: 15, Balance: 2000.0, Approved: true] 2021-Jan-13 Wednesday PST 08:38:10 
+{INFO}  com.mybank.main.MyBankMain UserAccountInfo [ID: 6, Account: Savings, Account Number: 668569, Routing Number: 16, Balance: 2000.0, Approved: true] 2021-Jan-13 Wednesday PST 08:38:10 
+{INFO}  com.mybank.main.MyBankMain UserAccountInfo [ID: 6, Account: Checkings, Account Number: 666481, Routing Number: 14, Balance: 1800.0, Approved: true] 2021-Jan-13 Wednesday PST 08:38:10 
+{INFO}  com.mybank.main.MyBankMain Enter the Routing Number of the Account:  2021-Jan-13 Wednesday PST 08:38:10 
+{INFO}  com.mybank.main.MyBankMain UserAccountInfo [ID: 6, Account: Savings, Account Number: 668569, Routing Number: 16, Balance: 2000.0, Approved: true] 2021-Jan-13 Wednesday PST 08:38:35 
+{INFO}  com.mybank.main.MyBankMain __________________Withdraw OR Deposit_________________ 2021-Jan-13 Wednesday PST 08:38:35 
+{INFO}  com.mybank.main.MyBankMain What type of transaction would you like to do:  2021-Jan-13 Wednesday PST 08:38:35 
+{INFO}  com.mybank.main.MyBankMain 1) Withdrawal 2021-Jan-13 Wednesday PST 08:38:35 
+{INFO}  com.mybank.main.MyBankMain 2) Deposit 2021-Jan-13 Wednesday PST 08:38:35 
+{INFO}  com.mybank.main.MyBankMain 52) Back 2021-Jan-13 Wednesday PST 08:38:35 
+{INFO}  com.mybank.main.MyBankMain _____________How much would you like to Withdraw?___________ 2021-Jan-13 Wednesday PST 08:38:37 
+{INFO}  com.mybank.main.MyBankMain Enter the Withdrawal amount:  2021-Jan-13 Wednesday PST 08:38:37 
+{INFO}  com.mybank.service.impl.AccountCreateServiceImpl Transaction success. Redirecting you back. 2021-Jan-13 Wednesday PST 08:38:40 
+{INFO}  com.mybank.main.MyBankMain Hello danile! As a customer, what would you like to do today.  2021-Jan-13 Wednesday PST 08:38:40 
+{INFO}  com.mybank.main.MyBankMain 1) Open A New Account 2021-Jan-13 Wednesday PST 08:38:40 
+{INFO}  com.mybank.main.MyBankMain 2) Retrieve Account Information 2021-Jan-13 Wednesday PST 08:38:40 
+{INFO}  com.mybank.main.MyBankMain 3) Withdraw/Deposit 2021-Jan-13 Wednesday PST 08:38:40 
+{INFO}  com.mybank.main.MyBankMain 4) Transfer Account Balance 2021-Jan-13 Wednesday PST 08:38:40 
+{INFO}  com.mybank.main.MyBankMain 5) Accept/Reject Transfer 2021-Jan-13 Wednesday PST 08:38:40 
+{INFO}  com.mybank.main.MyBankMain 52) Sign Out 2021-Jan-13 Wednesday PST 08:38:40 
+{INFO}  com.mybank.main.MyBankMain You signed out. 2021-Jan-13 Wednesday PST 08:46:13 
+{INFO}  com.mybank.main.MyBankMain _____________________Login____________________ 2021-Jan-13 Wednesday PST 08:46:13 
+{INFO}  com.mybank.main.MyBankMain 1) Enter information 2021-Jan-13 Wednesday PST 08:46:13 
+{INFO}  com.mybank.main.MyBankMain 67) Back 2021-Jan-13 Wednesday PST 08:46:13 
+{INFO}  com.mybank.main.MyBankMain You were directed back. 2021-Jan-13 Wednesday PST 08:46:15 
+{INFO}  com.mybank.main.MyBankMain Login Or Sign Up 2021-Jan-13 Wednesday PST 08:46:15 
+{INFO}  com.mybank.main.MyBankMain 1) Login 2021-Jan-13 Wednesday PST 08:46:15 
+{INFO}  com.mybank.main.MyBankMain 2) Sign Up 2021-Jan-13 Wednesday PST 08:46:15 
+{INFO}  com.mybank.main.MyBankMain 56) Exit 2021-Jan-13 Wednesday PST 08:46:15 
+{INFO}  com.mybank.main.MyBankMain OK Have a nice day. 2021-Jan-13 Wednesday PST 08:46:19 
+{INFO}  com.mybank.main.MyBankMain ___________Hello, Welcome to MyBank__________________ 2021-Jan-13 Wednesday PST 08:55:53 
+{INFO}  com.mybank.main.MyBankMain What would you like to do today... 2021-Jan-13 Wednesday PST 08:55:53 
+{INFO}  com.mybank.main.MyBankMain Login Or Sign Up 2021-Jan-13 Wednesday PST 08:55:53 
+{INFO}  com.mybank.main.MyBankMain 1) Login 2021-Jan-13 Wednesday PST 08:55:53 
+{INFO}  com.mybank.main.MyBankMain 2) Sign Up 2021-Jan-13 Wednesday PST 08:55:53 
+{INFO}  com.mybank.main.MyBankMain 56) Exit 2021-Jan-13 Wednesday PST 08:55:53 
+{INFO}  com.mybank.main.MyBankMain __________________Sign Up_________________ 2021-Jan-13 Wednesday PST 08:55:59 
+{INFO}  com.mybank.main.MyBankMain What would you like to sign up as: 2021-Jan-13 Wednesday PST 08:55:59 
+{INFO}  com.mybank.main.MyBankMain 1) Customer 2021-Jan-13 Wednesday PST 08:55:59 
+{INFO}  com.mybank.main.MyBankMain 2) Employee 2021-Jan-13 Wednesday PST 08:55:59 
+{INFO}  com.mybank.main.MyBankMain 55) Back 2021-Jan-13 Wednesday PST 08:55:59 
+{INFO}  com.mybank.main.MyBankMain _____________Welcome Customer___________ 2021-Jan-13 Wednesday PST 08:56:02 
+{INFO}  com.mybank.main.MyBankMain 1) Enter Personal Information 2021-Jan-13 Wednesday PST 08:56:02 
+{INFO}  com.mybank.main.MyBankMain 54) Back 2021-Jan-13 Wednesday PST 08:56:02 
+{INFO}  com.mybank.main.MyBankMain Enter your First Name:  2021-Jan-13 Wednesday PST 08:56:04 
+{INFO}  com.mybank.main.MyBankMain Enter your Last Name:  2021-Jan-13 Wednesday PST 08:56:06 
+{INFO}  com.mybank.main.MyBankMain Enter your birthdate:  2021-Jan-13 Wednesday PST 08:56:07 
+{INFO}  com.mybank.main.MyBankMain Enter your phone number:  2021-Jan-13 Wednesday PST 08:56:13 
+{INFO}  com.mybank.main.MyBankMain Enter your email:  2021-Jan-13 Wednesday PST 08:56:18 
+{INFO}  com.mybank.main.MyBankMain Enter your Country: 2021-Jan-13 Wednesday PST 08:58:10 
+{INFO}  com.mybank.main.MyBankMain 1) USA 2021-Jan-13 Wednesday PST 08:58:10 
+{INFO}  com.mybank.main.MyBankMain Enter your home address:  2021-Jan-13 Wednesday PST 08:58:12 
+{INFO}  com.mybank.main.MyBankMain Enter your home city:  2021-Jan-13 Wednesday PST 08:58:18 
+{INFO}  com.mybank.main.MyBankMain Invalid input. Please try again. 2021-Jan-13 Wednesday PST 08:58:32 
+{INFO}  com.mybank.main.MyBankMain Enter your home city:  2021-Jan-13 Wednesday PST 08:58:32 
+{INFO}  com.mybank.main.MyBankMain Invalid input. Please try again. 2021-Jan-13 Wednesday PST 08:58:36 
+{INFO}  com.mybank.main.MyBankMain Enter your home city:  2021-Jan-13 Wednesday PST 08:58:36 
+{INFO}  com.mybank.main.MyBankMain Enter your home state:  2021-Jan-13 Wednesday PST 08:59:50 
+{INFO}  com.mybank.main.MyBankMain Enter your home zipcode:  2021-Jan-13 Wednesday PST 08:59:52 
+{INFO}  com.mybank.main.MyBankMain Great! Now you can create a Username and Password. 2021-Jan-13 Wednesday PST 09:00:02 
+{INFO}  com.mybank.main.MyBankMain Enter your username:  2021-Jan-13 Wednesday PST 09:00:02 
+{INFO}  com.mybank.main.MyBankMain Enter your password:  2021-Jan-13 Wednesday PST 09:00:07 
+{INFO}  com.mybank.service.impl.AccountCreateServiceImpl Customer registration success 2021-Jan-13 Wednesday PST 09:00:09 
+{INFO}  com.mybank.main.MyBankMain Congratulations, you were registered with us. You will now be redirected back to the Sign Up menu. 2021-Jan-13 Wednesday PST 09:00:09 
+{INFO}  com.mybank.main.MyBankMain You were directed back 2021-Jan-13 Wednesday PST 09:00:09 
+{INFO}  com.mybank.main.MyBankMain  2021-Jan-13 Wednesday PST 09:00:09 
+{INFO}  com.mybank.main.MyBankMain __________________Sign Up_________________ 2021-Jan-13 Wednesday PST 09:00:09 
+{INFO}  com.mybank.main.MyBankMain What would you like to sign up as: 2021-Jan-13 Wednesday PST 09:00:09 
+{INFO}  com.mybank.main.MyBankMain 1) Customer 2021-Jan-13 Wednesday PST 09:00:09 
+{INFO}  com.mybank.main.MyBankMain 2) Employee 2021-Jan-13 Wednesday PST 09:00:09 
+{INFO}  com.mybank.main.MyBankMain 55) Back 2021-Jan-13 Wednesday PST 09:00:09 
+{INFO}  com.mybank.main.MyBankMain  2021-Jan-13 Wednesday PST 09:00:40 
+{INFO}  com.mybank.main.MyBankMain You were directed back. 2021-Jan-13 Wednesday PST 09:00:40 
+{INFO}  com.mybank.main.MyBankMain Login Or Sign Up 2021-Jan-13 Wednesday PST 09:00:40 
+{INFO}  com.mybank.main.MyBankMain 1) Login 2021-Jan-13 Wednesday PST 09:00:40 
+{INFO}  com.mybank.main.MyBankMain 2) Sign Up 2021-Jan-13 Wednesday PST 09:00:40 
+{INFO}  com.mybank.main.MyBankMain 56) Exit 2021-Jan-13 Wednesday PST 09:00:40 
+{INFO}  com.mybank.main.MyBankMain _____________________Login____________________ 2021-Jan-13 Wednesday PST 09:00:46 
+{INFO}  com.mybank.main.MyBankMain 1) Enter information 2021-Jan-13 Wednesday PST 09:00:46 
+{INFO}  com.mybank.main.MyBankMain 67) Back 2021-Jan-13 Wednesday PST 09:00:46 
+{INFO}  com.mybank.main.MyBankMain Please enter your username:  2021-Jan-13 Wednesday PST 09:00:48 
+{INFO}  com.mybank.main.MyBankMain Please enter your password:  2021-Jan-13 Wednesday PST 09:01:56 
+{INFO}  com.mybank.main.MyBankMain Hello bgdbtdrfbhdtr! As a customer, what would you like to do today.  2021-Jan-13 Wednesday PST 09:02:20 
+{INFO}  com.mybank.main.MyBankMain 1) Open A New Account 2021-Jan-13 Wednesday PST 09:02:20 
+{INFO}  com.mybank.main.MyBankMain 2) Retrieve Account Information 2021-Jan-13 Wednesday PST 09:02:20 
+{INFO}  com.mybank.main.MyBankMain 3) Withdraw/Deposit 2021-Jan-13 Wednesday PST 09:02:20 
+{INFO}  com.mybank.main.MyBankMain 4) Transfer Account Balance 2021-Jan-13 Wednesday PST 09:02:20 
+{INFO}  com.mybank.main.MyBankMain 5) Accept/Reject Transfer 2021-Jan-13 Wednesday PST 09:02:20 
+{INFO}  com.mybank.main.MyBankMain 52) Sign Out 2021-Jan-13 Wednesday PST 09:02:20 
+{INFO}  com.mybank.main.MyBankMain In order to view accounts, enter your password again:  2021-Jan-13 Wednesday PST 09:02:24 
+{INFO}  com.mybank.main.MyBankMain No Accounts found. The approval of your accounts are still pending.  2021-Jan-13 Wednesday PST 09:02:38 
+{INFO}  com.mybank.main.MyBankMain Please try again. 2021-Jan-13 Wednesday PST 09:02:38 
+{INFO}  com.mybank.main.MyBankMain Hello bgdbtdrfbhdtr! As a customer, what would you like to do today.  2021-Jan-13 Wednesday PST 09:02:38 
+{INFO}  com.mybank.main.MyBankMain 1) Open A New Account 2021-Jan-13 Wednesday PST 09:02:38 
+{INFO}  com.mybank.main.MyBankMain 2) Retrieve Account Information 2021-Jan-13 Wednesday PST 09:02:38 
+{INFO}  com.mybank.main.MyBankMain 3) Withdraw/Deposit 2021-Jan-13 Wednesday PST 09:02:38 
+{INFO}  com.mybank.main.MyBankMain 4) Transfer Account Balance 2021-Jan-13 Wednesday PST 09:02:38 
+{INFO}  com.mybank.main.MyBankMain 5) Accept/Reject Transfer 2021-Jan-13 Wednesday PST 09:02:38 
+{INFO}  com.mybank.main.MyBankMain 52) Sign Out 2021-Jan-13 Wednesday PST 09:02:38 
+{INFO}  com.mybank.main.MyBankMain In order to Withdraw or Deposit, enter your password again:  2021-Jan-13 Wednesday PST 09:02:50 
+{INFO}  com.mybank.main.MyBankMain No Accounts found. The approval of your accounts are still pending.  2021-Jan-13 Wednesday PST 09:02:56 
+{INFO}  com.mybank.main.MyBankMain Please try again. 2021-Jan-13 Wednesday PST 09:02:56 
+{INFO}  com.mybank.main.MyBankMain Hello bgdbtdrfbhdtr! As a customer, what would you like to do today.  2021-Jan-13 Wednesday PST 09:02:56 
+{INFO}  com.mybank.main.MyBankMain 1) Open A New Account 2021-Jan-13 Wednesday PST 09:02:56 
+{INFO}  com.mybank.main.MyBankMain 2) Retrieve Account Information 2021-Jan-13 Wednesday PST 09:02:56 
+{INFO}  com.mybank.main.MyBankMain 3) Withdraw/Deposit 2021-Jan-13 Wednesday PST 09:02:56 
+{INFO}  com.mybank.main.MyBankMain 4) Transfer Account Balance 2021-Jan-13 Wednesday PST 09:02:56 
+{INFO}  com.mybank.main.MyBankMain 5) Accept/Reject Transfer 2021-Jan-13 Wednesday PST 09:02:56 
+{INFO}  com.mybank.main.MyBankMain 52) Sign Out 2021-Jan-13 Wednesday PST 09:02:56 
+{INFO}  com.mybank.main.MyBankMain You signed out. 2021-Jan-13 Wednesday PST 09:03:06 
+{INFO}  com.mybank.main.MyBankMain _____________________Login____________________ 2021-Jan-13 Wednesday PST 09:03:06 
+{INFO}  com.mybank.main.MyBankMain 1) Enter information 2021-Jan-13 Wednesday PST 09:03:06 
+{INFO}  com.mybank.main.MyBankMain 67) Back 2021-Jan-13 Wednesday PST 09:03:06 
+{INFO}  com.mybank.main.MyBankMain You were directed back. 2021-Jan-13 Wednesday PST 09:03:10 
+{INFO}  com.mybank.main.MyBankMain Login Or Sign Up 2021-Jan-13 Wednesday PST 09:03:10 
+{INFO}  com.mybank.main.MyBankMain 1) Login 2021-Jan-13 Wednesday PST 09:03:10 
+{INFO}  com.mybank.main.MyBankMain 2) Sign Up 2021-Jan-13 Wednesday PST 09:03:10 
+{INFO}  com.mybank.main.MyBankMain 56) Exit 2021-Jan-13 Wednesday PST 09:03:10 
+{INFO}  com.mybank.main.MyBankMain OK Have a nice day. 2021-Jan-13 Wednesday PST 09:03:12 

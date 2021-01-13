@@ -91,8 +91,9 @@ public class AccountCreateDAOImpl implements AccountCreateDAO{
 		int c = 0;
 		int c0 = 0;
 		try {
+			
 			Connection connection = PostgresqlConnection.getConnection();
-			String sql = "INSERT INTO mybank.user_bank_history(user_id, routing_number, routing_number_dest, transaction_type, amount) VALUES(?,?,?,?,?::float8::numeric::money);"; 
+			String sql = "INSERT INTO mybank.user_bank_history(user_id, routing_number, routing_number_dest, transaction_type, amount, is_accepted) VALUES(?,?,?,?,?::float8::numeric::money,?);"; 
 			String sql1 = "UPDATE mybank.user_account_info SET balance =  ?::float8::numeric::money WHERE routing_number = ?;";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
@@ -102,6 +103,7 @@ public class AccountCreateDAOImpl implements AccountCreateDAO{
 			preparedStatement.setInt(3, userBankHistory.getRoutingNumberDest());
 			preparedStatement.setString(4, userBankHistory.getTransactionType());
 			preparedStatement.setDouble(5, userBankHistory.getAmount());
+			preparedStatement.setBoolean(6, userBankHistory.getIsAccepted());
 			if(userBankHistory.getTransactionType().equals("Withdrawal")) {
 				preparedStatement1.setDouble(1, (userApprovedAccountInfo.getBalance() - userBankHistory.getAmount()));
 			}
@@ -112,13 +114,12 @@ public class AccountCreateDAOImpl implements AccountCreateDAO{
 			c = preparedStatement.executeUpdate();
 			c0 = preparedStatement1.executeUpdate();
 			connection.close();
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			log.info(e.getMessage());
 			throw new BusinessException("");
 		}
-		return c ;
-	}
-
-	
+		return c + c0;
+		}
 
 }

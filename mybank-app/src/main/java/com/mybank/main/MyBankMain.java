@@ -155,7 +155,7 @@ public class MyBankMain {
 									log.info("2) Retrieve Account Information");
 									log.info("3) Withdraw/Deposit");
 									log.info("4) Transfer Account Balance");
-									log.info("5) Accept Transfer");
+									log.info("5) Accept/Reject Transfer");
 									log.info("52) Sign Out");
 								try {
 									customerOptions = Integer.parseInt(scanner.nextLine());
@@ -292,6 +292,7 @@ public class MyBankMain {
 											userBankHistory.setUserId(userApprovedAccountInfo.getUserId());
 											userBankHistory.setRoutingNumber(userApprovedAccountInfo.getRoutingNumber());
 											userBankHistory.setRoutingNumberDest(userApprovedAccountInfo.getRoutingNumber());
+											userBankHistory.setAccepted(true);
 											do {
 												log.info("__________________Withdraw OR Deposit_________________");
 												log.info("What type of transaction would you like to do: ");
@@ -474,19 +475,20 @@ public class MyBankMain {
 						case 6:
 							while(i < 6) {
 								log.info("Enter your Country:");
+								log.info("1) USA");
 								userPersonalInfo.setCountryId(Integer.parseInt(scanner.nextLine()));
 								if(userPersonalInfo.getCountryId() == 1) {
 									i = 6;
 								}
 								else {
-									log.info("Please input 1.");
+									log.info("Please enter 1.");
 								}
 							}
 						case 7:
 							while(i < 7) {
 								log.info("Enter your home address: ");
 								userPersonalInfo.setHomeAddress(scanner.nextLine());
-								if(userPersonalInfo.getHomeAddress().matches("^[a-zA-Z0-9]+$")) {
+								if(userPersonalInfo.getHomeAddress().matches("[a-zA-Z0-9 ]{2,10} [a-zA-Z0-9 ]{2,40}")) {
 									i = 7;
 								}
 								else {
@@ -495,9 +497,9 @@ public class MyBankMain {
 							}
 							case 8:
 								while(i < 8) {
-									log.info("Enter yor home city: ");
+									log.info("Enter your home city: ");
 									userPersonalInfo.setHomeCity(scanner.nextLine());
-									if(userPersonalInfo.getHomeCity().matches("^[a-zA-Z]+$")) {
+									if(userPersonalInfo.getHomeCity().matches("[a-zA-Z ]{2,10}")) {
 										i = 8;
 									}
 									else {
@@ -561,7 +563,7 @@ public class MyBankMain {
 								}
 							}
 						case 54:
-							log.info("You were directed back");
+							log.info("You were directed back.");
 							customerSignUpOption = 54;
 							break;
 							default:
@@ -591,5 +593,6 @@ public class MyBankMain {
 				break;
 			}
 			}while(option != 56);
+		scanner.close();
 		}
 }
