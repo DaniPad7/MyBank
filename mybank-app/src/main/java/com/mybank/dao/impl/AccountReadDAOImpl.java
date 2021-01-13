@@ -1,5 +1,4 @@
 package com.mybank.dao.impl;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -126,10 +125,6 @@ public class AccountReadDAOImpl implements AccountReadDAO{
 				
 			}
 			connection.close();
-			if(userAccountInfoList.size() == 0) {
-				throw new BusinessException("No customers found. " );
-			}
-			else {}
 		} catch (ClassNotFoundException | SQLException e) {
 			log.info(e);
 			throw new BusinessException("Problem in userAcc DAOImpl");
@@ -160,10 +155,6 @@ public class AccountReadDAOImpl implements AccountReadDAO{
 				
 			}
 			connection.close();
-			if(userAccountInfoList.size() == 0) {
-				throw new BusinessException("No customers found. " );
-			}
-			else {}
 		} catch (ClassNotFoundException | SQLException e) {
 			log.info(e);
 			throw new BusinessException("Problem in userAcc2 DAOImpl");

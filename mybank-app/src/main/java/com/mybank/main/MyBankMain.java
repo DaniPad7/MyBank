@@ -4,18 +4,24 @@ import org.apache.log4j.Logger;
 
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.*;
 
 import com.mybank.exception.BusinessException;
 import com.mybank.model.UserAccountInfo;
+import com.mybank.model.UserBankHistory;
 import com.mybank.model.UserCorporateInfo;
 import com.mybank.model.UserPersonalInfo;
 import com.mybank.service.AccountCreateService;
+import com.mybank.service.AccountDeleteService;
 import com.mybank.service.AccountReadService;
+import com.mybank.service.AccountUpdateService;
 import com.mybank.service.impl.AccountCreateServiceImpl;
+import com.mybank.service.impl.AccountDeleteServiceImpl;
 import com.mybank.service.impl.AccountReadServiceImpl;
+import com.mybank.service.impl.AccountUpdateServiceImpl;
 
 public class MyBankMain {
 	public static Logger log = Logger.getLogger(MyBankMain.class);
@@ -25,25 +31,21 @@ public class MyBankMain {
 		
 		AccountCreateService accountCreateService = new AccountCreateServiceImpl();
 		AccountReadService accountReadService = new AccountReadServiceImpl();
+		AccountUpdateService accountUpdateService = new AccountUpdateServiceImpl();
+		AccountDeleteService accountDeleteService = new AccountDeleteServiceImpl();
 		
 		int option = 0;
 		
 		log.info("___________Hello, Welcome to MyBank__________________");
 		log.info("What would you like to do today...");
-		
-		
 		do {
 			log.info("Login Or Sign Up");
 			log.info("1) Login");
 			log.info("2) Sign Up");
 			log.info("56) Exit");
-			
 			try {
 			option = Integer.parseInt(scanner.nextLine());
-			
 			}catch(NumberFormatException e) {}
-			
-			
 			switch(option) {
 			case 1:
 				int loginOption = 0;
@@ -77,31 +79,56 @@ public class MyBankMain {
 								}catch(NumberFormatException e) {}
 								switch(employeeOptions) {
 								case 1:
+									int approveEmployeeOption = 0;
 									log.info("Enter the first name of the customer:");
 									String firstName = scanner.nextLine();
 									log.info("Enter the last name of the customer: ");
 									String lastName = scanner.nextLine();
 									try {
-										List<UserAccountInfo> userAccountInfoList = accountReadService.getAcc(firstName, lastName);
-										if(userAccountInfoList != null && userAccountInfoList.size() > 0) {
-											log.info("The unapproved customer account are printed below:");;
-											for(UserAccountInfo uai : userAccountInfoList) {
-												if(!uai.isApproved()) {
-													log.info(uai);
+											List<UserAccountInfo> userAccountInfoList = accountReadService.getAcc(firstName, lastName);
+											if(userAccountInfoList != null && userAccountInfoList.size() > 0) {
+												log.info("The unapproved customer accounts are printed below:");;
+												for(UserAccountInfo uai : userAccountInfoList) {
+													if(!uai.isApproved()) {
+														log.info(uai);
+													}
+													else {}
 												}
-												else {}
-												
 											}
-											
-										}
-									} catch (BusinessException e) {
-										log.info(e.getMessage());;
-										log.info("Please try again.");
-									}
-									
-									//updateservicehere for employee
+											} catch (BusinessException e) {
+												log.info(e.getMessage());
+												log.info("Please try again.");
+											}
+											do {		
+												log.info("_____Ready to Approve Account______ ");
+												log.info("1)Enter Routing Number ");
+												log.info("52)Back ");
+												try {
+													approveEmployeeOption = Integer.parseInt(scanner.nextLine());
+												}catch(NumberFormatException e) {
+													log.info(e);
+												}
+												switch(approveEmployeeOption) {
+												case 1:
+													log.info("Enter the Account Routing Number to Approve: ");
+													try {
+													int routingNumber = Integer.parseInt(scanner.nextLine());
+													accountUpdateService.approveAcc(routingNumber);
+													}catch(NumberFormatException|BusinessException e) {
+														log.info(e);
+														log.info("Invalid option. Please try again.");
+													}
+													
+													break;
+												case 52:
+													log.info("You decided to go back.");
+														break;
+												default:
+													log.info("Invalid option. Please try again.");
+													break;
+												}
+											}while(approveEmployeeOption != 52);
 									break;
-									
 								case 2:
 									log.info("This option is under construction.");
 									break;
@@ -117,8 +144,6 @@ public class MyBankMain {
 								}
 								
 							}while(employeeOptions != 53);
-
-
 							}
 							else if(userPersonalInfoRead != null && !userCorporateInfoRead.isEmployee()){
 								int customerOptions = 0;
@@ -135,8 +160,6 @@ public class MyBankMain {
 								}catch(NumberFormatException e) {}
 									switch(customerOptions) {
 									case 1:
-										//log.info("This option is under construction.");
-										//add public int openNewAcc() throws BusinessException;
 										int newCustomerAccountOptions = 0;
 										UserAccountInfo userAccountInfo = new UserAccountInfo();;
 										do {
@@ -148,10 +171,9 @@ public class MyBankMain {
 											try {
 												newCustomerAccountOptions = Integer.parseInt(scanner.nextLine());
 											}catch(NumberFormatException e) {}
-											
 											if(newCustomerAccountOptions == 1) {
 												userAccountInfo.setAccountType("Savings");
-												log.info("_____________Welcome to Your New "+ userAccountInfo.getAccountType() +" Account___________");
+												log.info("_____________Welcome to Your New "+ userAccountInfo.getAccountType() + " Account___________");
 												log.info("1) Enter Account Information");
 												log.info("51) Back");
 											}
@@ -160,29 +182,20 @@ public class MyBankMain {
 												log.info("_____________Welcome to Your New " + userAccountInfo.getAccountType() + " Account___________");
 												log.info("1) Enter Account Information");
 												log.info("51) Back");
-												
 												newCustomerAccountOptions = 1;
 												}
 											else {}
-											
 											switch(newCustomerAccountOptions) {
-											
 											case 1:
 												int customerNewAccountOption = 0;
-												
 												do {
-										
-												try {
+													try {
 													 customerNewAccountOption = Integer.parseInt(scanner.nextLine());
-													
-													}catch(NumberFormatException e) {
-														
-													}
+													}catch(NumberFormatException e) {}
 												if(customerNewAccountOption > 1 && customerNewAccountOption < 51) {
 													customerNewAccountOption = 0;
 												}
 												switch(customerNewAccountOption) {
-												
 												case 1:
 													log.info("Please input your starting balance: ");
 													try {
@@ -190,7 +203,6 @@ public class MyBankMain {
 													}catch(NumberFormatException e) {
 														log.info(e);
 													}
-													
 													if(userAccountInfo.getBalance() < 1_000_000 && userAccountInfo.getBalance() > -1)  {
 														accountCreateService.openNewAcc(userPersonalInfoRead,userAccountInfo);
 														log.info("Your account was successfully created... Redirecting you back");
@@ -202,10 +214,8 @@ public class MyBankMain {
 														//customerNewAccountOption = 1;
 														break;
 													}
-												
 												case 51:
 													log.info("Back");
-													
 													break;
 												default:
 													log.info("Invalid option. Please try again.");
@@ -213,13 +223,10 @@ public class MyBankMain {
 													log.info("51) Back");
 													break;
 												}
-												
 												} while(customerNewAccountOption != 51);
-												
-											case 52:	
+												case 52:	
 												log.info("");
 												break;
-											
 											default:
 												log.info("Invalid option. Please try again.");
 												break;
@@ -236,15 +243,122 @@ public class MyBankMain {
 												for(UserAccountInfo uai : userAccountInfoList) {
 													log.info(uai);
 													}
-												
-											}
+												}
 										} catch (BusinessException e) {
 											log.info(e.getMessage());
 											log.info("Please try again.");
 										}
 										break;
 									case 3:
-										log.info("This option is under construction.");
+										UserAccountInfo userApprovedAccountInfo = new UserAccountInfo();
+										UserBankHistory userBankHistory = new UserBankHistory();
+										int withdrawDepositAccountOption = 0;
+										log.info("In order to Withdraw or Deposit, enter your password again: ");
+										String passwordAgain0 = scanner.nextLine();
+										try {
+											List<UserAccountInfo> userAccountInfoList = accountReadService.getAcc(passwordAgain0);
+											List<UserAccountInfo> approvedUserAccountInfoList = new ArrayList<>();
+											if(userAccountInfoList != null && userAccountInfoList.size() > 0) {
+												log.info("Your approved accounts are printed below:");
+												for(UserAccountInfo uai : userAccountInfoList) {
+													if(uai.isApproved()) {
+														log.info(uai);
+														approvedUserAccountInfoList.add(uai);
+													}
+													}
+												int choseExistingRoutingNumber = 1;
+												while(choseExistingRoutingNumber  == 1){
+												log.info("Enter the Routing Number of the Account: ");
+												int withdrawDepositRoutingNumber = Integer.parseInt(scanner.nextLine());
+													for(UserAccountInfo uai : approvedUserAccountInfoList) {
+														if(uai.getRoutingNumber() == withdrawDepositRoutingNumber) {
+															log.info(uai);
+															userApprovedAccountInfo.setUserId(uai.getUserId());
+															userApprovedAccountInfo.setAccountType(uai.getAccountType());
+															userApprovedAccountInfo.setAccountNumber(uai.getAccountNumber());
+															userApprovedAccountInfo.setRoutingNumber(uai.getRoutingNumber());
+															userApprovedAccountInfo.setBalance(uai.getBalance());
+															userApprovedAccountInfo.setApproved(uai.isApproved());
+															
+															choseExistingRoutingNumber = 0;
+														}
+														}
+												}
+												}
+											userBankHistory.setUserId(userApprovedAccountInfo.getUserId());
+											userBankHistory.setRoutingNumber(userApprovedAccountInfo.getRoutingNumber());
+											userBankHistory.setRoutingNumberDest(userApprovedAccountInfo.getRoutingNumber());
+											do {
+												log.info("__________________Withdraw OR Deposit_________________");
+												log.info("What type of transaction would you like to do: ");
+												log.info("1) Withdrawal");
+												log.info("2) Deposit");
+												log.info("52) Back");
+												
+													withdrawDepositAccountOption = Integer.parseInt(scanner.nextLine());
+												
+												if(withdrawDepositAccountOption == 1) {
+													userBankHistory.setTransactionType("Withdrawal");
+													log.info("_____________Are you sure you would like to perform a  "+ userBankHistory.getTransactionType() +" ?___________");
+													log.info("1) Enter "+ userBankHistory.getTransactionType() + " Amount");
+													log.info("51) Back");
+												}
+												else if(withdrawDepositAccountOption == 2){
+													userBankHistory.setTransactionType("Deposit");
+													log.info("_____________Are you sure you would like to perform a " + userBankHistory.getTransactionType() + " ?___________");
+													log.info("1) Enter "+ userBankHistory.getTransactionType() + " Amount");
+													log.info("51) Back");
+													withdrawDepositAccountOption = 1;
+													}
+												else {}
+												
+												switch(withdrawDepositAccountOption) {
+												case 1:
+													int customerNewWithdrawDepositOption = 0;
+													do {
+														customerNewWithdrawDepositOption = Integer.parseInt(scanner.nextLine());
+														if(customerNewWithdrawDepositOption > 1 && customerNewWithdrawDepositOption < 51) {
+														customerNewWithdrawDepositOption = 0;
+													}
+													switch(customerNewWithdrawDepositOption) {
+													case 1:
+														while(userBankHistory.getAmount() < 1 && userBankHistory.getAmount() > 1_000_000) {
+															log.info("Enter the transaction amount: ");
+															userBankHistory.setAmount(Double.parseDouble(scanner.nextLine()));
+														}
+														if((userBankHistory.getTransactionType().equals("Withdrawal") && (userApprovedAccountInfo.getBalance() - userBankHistory.getAmount()) > -1) || (userBankHistory.getTransactionType().equals("Deposit") && (userApprovedAccountInfo.getBalance() + userBankHistory.getAmount()) < 10_000_000))  {
+															//accountCreateService.openNewAcc(userPersonalInfoRead,userAccountInfo);
+						/***************************/									log.info("Your account was successfully created... Redirecting you back");
+															customerNewWithdrawDepositOption = 51;
+															break;
+														}
+														else {
+															log.info("The Account balance will be out of bounds after this transaction.");
+															//customerNewAccountOption = 1;
+															break;
+														}
+													case 51:
+														log.info("Back");
+														break;
+													default:
+														log.info("Invalid option. Please try again.");
+														log.info("1) Enter "+ userBankHistory.getTransactionType() + " Amount");
+														log.info("51) Back");
+														break;
+													}
+													} while(customerNewWithdrawDepositOption != 51);
+													case 52:	
+													log.info("");
+													break;
+												default:
+													log.info("Invalid option. Please try again.");
+													break;
+												}
+											}while(withdrawDepositAccountOption != 52);//<--last one was 55 so 54 --> 51
+											} catch (BusinessException|NumberFormatException e) {
+											log.info(e.getMessage());
+											log.info("Please try again.");
+										}
 										break;
 									case 4:
 										log.info("This option is under construction.");
@@ -259,8 +373,7 @@ public class MyBankMain {
 										log.info("Invalid Option from customer. Please try again.");
 										break;
 									}
-									
-								}while(customerOptions != 52);
+									}while(customerOptions != 52);
 							} 
 							else {}
 						}catch (BusinessException e1) {
@@ -273,14 +386,8 @@ public class MyBankMain {
 					default:
 						log.info("Invalid input. Please try again.");
 						break;
-						
-						
-					}
-					
-					
-					
-				 
-				}while(loginOption != 67);
+						}
+					}while(loginOption != 67);
 				break;
 			
 			case 2:
@@ -288,21 +395,18 @@ public class MyBankMain {
 				int signUpOption = 0;
 				UserPersonalInfo userPersonalInfo = new UserPersonalInfo();
 				UserCorporateInfo userCorporateInfo = new UserCorporateInfo();
-				
 				do {
 					log.info("__________________Sign Up_________________");
 					log.info("What would you like to sign up as:");
 					log.info("1) Customer");
 					log.info("2) Employee");
 					log.info("55) Back");
-					
 					try {
 						signUpOption = Integer.parseInt(scanner.nextLine());
 						
 						}catch(NumberFormatException e) {
 							
 						}
-					
 					if(signUpOption == 1) {
 						userCorporateInfo.setEmployee(false);
 						log.info("_____________Welcome Customer___________");
@@ -315,31 +419,21 @@ public class MyBankMain {
 						log.info("1) Enter Personal Information");
 						log.info("54) Back");
 						signUpOption = 1;
-						
-					}
+						}
 					else {}
 					
 					switch(signUpOption) {
-					
 					case 1:
 						int customerSignUpOption = 0;
-						
 						do {
-				
-						try {
+							try {
 							 customerSignUpOption = Integer.parseInt(scanner.nextLine());
 							
-							}catch(NumberFormatException e) {
-								
-							}
-						if(customerSignUpOption > 1 && customerSignUpOption < 54) {
+							}catch(NumberFormatException e) {}
+						if(customerSignUpOption > 1 && customerSignUpOption < 54) { //the problem of switch end is here
 							customerSignUpOption = 0;
 						}
-						
-						
-						
 						switch(customerSignUpOption) {
-						
 						case 1: //needs fixing
 							log.info("Enter your First Name: ");
 							userPersonalInfo.setFirstName(scanner.nextLine());
@@ -354,8 +448,6 @@ public class MyBankMain {
 								customerSignUpOption = 1;
 								break;
 								}
-							
-							
 						case 2:
 							log.info("Enter your Last Name: ");
 							userPersonalInfo.setLastName(scanner.nextLine());
@@ -370,7 +462,6 @@ public class MyBankMain {
 								}
 						case 3:
 							log.info("Enter your birthdate: ");
-							
 							userPersonalInfo.setBirthDate(Date.valueOf(scanner.nextLine()));
 							if(userPersonalInfo.getBirthDate().toString().matches("^[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]+$")) {
 								customerSignUpOption = 4;
@@ -381,14 +472,12 @@ public class MyBankMain {
 								customerSignUpOption = 3;
 								break;
 								}
-							
-						case 4: //improve regex
+							case 4: //improve regex
 							log.info("Enter your phone number: ");
 							userPersonalInfo.setPhoneNumber(scanner.nextLine());
 							if(userPersonalInfo.getPhoneNumber().matches("^[0-9]{3}-[0-9]{3}-[0-9]{4}+$")) {
 								customerSignUpOption = 5;
-								
-							}
+								}
 							else {
 								log.info("Invalid input. Please try again.");
 								customerSignUpOption = 4;
@@ -399,8 +488,7 @@ public class MyBankMain {
 							userPersonalInfo.setEmail(scanner.nextLine());
 							if(/*userPersonalInfo.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$" ||*/ userPersonalInfo.getEmail().isEmpty()) {
 								customerSignUpOption = 6;
-								
-							}
+								}
 							else {
 								log.info("Invalid input. Please try again.");
 								customerSignUpOption = 5;
@@ -411,8 +499,7 @@ public class MyBankMain {
 							userPersonalInfo.setCountryId(Integer.parseInt(scanner.nextLine()));
 							if(userPersonalInfo.getCountryId() == 1) {
 								customerSignUpOption = 7;
-								
-							}
+								}
 							else {
 								log.info("Invalid input. Please try again.");
 								customerSignUpOption = 6;
@@ -423,21 +510,18 @@ public class MyBankMain {
 							userPersonalInfo.setHomeAddress(scanner.nextLine());
 							if(userPersonalInfo.getHomeAddress().matches("^[a-zA-Z0-9]+$")) {
 								customerSignUpOption = 8;
-								
-							}
+								}
 							else {
 								log.info("Invalid input. Please try again.");
 								customerSignUpOption = 7;
 								break;
 								}
-							
-						case 8:
+							case 8:
 							log.info("Enter yor home city: ");
 							userPersonalInfo.setHomeCity(scanner.nextLine());
 							if(userPersonalInfo.getHomeCity().matches("^[a-zA-Z]+$")) {
 								customerSignUpOption = 9;
-								
-							}
+								}
 							else {
 								log.info("Invalid input. Please try again.");
 								customerSignUpOption = 8;
@@ -448,8 +532,7 @@ public class MyBankMain {
 							userPersonalInfo.setHomeState(scanner.nextLine());
 							if(userPersonalInfo.getHomeState().matches("^[A-Z]{2}+$")) {
 								customerSignUpOption = 10;
-								
-							}
+								}
 							else {
 								log.info("Invalid input. Please try again.");
 								customerSignUpOption = 9;
@@ -461,8 +544,7 @@ public class MyBankMain {
 							if(userPersonalInfo.getHomeZipCode().matches("^[0-9]{5}+$")) {
 								log.info("Great! Now you can create a USERNAME and Password.");
 								customerSignUpOption = 11;
-								
-							}
+								}
 							else {
 								log.info("Invalid input. Please try again.");
 								customerSignUpOption = 10;
@@ -473,8 +555,7 @@ public class MyBankMain {
 							userCorporateInfo.setUsername(scanner.nextLine());
 							if(userCorporateInfo.getUsername().matches("^[a-zA-Z0-9]+$")) {
 								customerSignUpOption = 12;
-								
-							}
+								}
 							else {
 								log.info("Invalid input. Please try again.");
 								customerSignUpOption = 11;
@@ -487,14 +568,18 @@ public class MyBankMain {
 								log.info("Attempting connection...");
 								try {
 									accountCreateService.regiCustomerAccount(userPersonalInfo, userCorporateInfo);
+									log.info("Congratulations, you were registered with us. You will now be redirected back to the Sign Up menu.");
 								} catch (BusinessException e) {
 									log.info(e);
-								}
+									try {
+										accountDeleteService.deleteMaxUserIdFromUserPersonalInfo();
+									} catch (BusinessException e1) {
+										log.info(e1);
+									}
+									}
 								customerSignUpOption = 54;
-								log.info("Congratulations, you were registered with us. You will now be redirected back to the Sign Up menu.");
 								break;
-								
-							}
+								}
 							else {
 								log.info("Invalid input. Please try again.");
 								customerSignUpOption = 12;
@@ -512,54 +597,30 @@ public class MyBankMain {
 						}
 						
 						} while(customerSignUpOption != 54);
-						
-					case 55:	
+						case 55:	
 						log.info("");
 						break;
-					
 					default:
 						log.info("Invalid option. Please try again.");
 						break;
 					}
 				}while(signUpOption != 55);
 				//end of encapsulation
-				
-			case 55:
+				case 55:
 				log.info("You decided to go back.");
 				break;
-			
 			case 56:
 				log.info("OK Have a nice day.");
 				break;
-			
 			default:
 				log.info("Invalid Option. Please try again.");
 				break;
-			
-			
-			
 			}
-			
-			
-			
-		}while(option != 56);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			}while(option != 56);
 		/*try {
 			int b = accountCreateService.regiCustomerAccount(firstUser, firstUserC);
 		} catch (BusinessException e) {
 			log.info(e);
 		}*/
-		
-		
-	}
-
+		}
 }

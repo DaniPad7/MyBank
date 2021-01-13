@@ -56,6 +56,11 @@ public class AccountReadServiceImpl implements AccountReadService{
 		else {
 			throw new BusinessException("The first or last name is invalid. Please try again.");
 		}
+		if(userAccountInfoList.size() == 0) {
+			throw new BusinessException("No customers found. " );
+		}
+		else {}
+		
 		return userAccountInfoList;
 		}
 	
@@ -66,6 +71,10 @@ public class AccountReadServiceImpl implements AccountReadService{
 		else {
 			throw new BusinessException("The password is invalid. Please try again.");
 		}
+		if(userAccountInfoList.size() == 0) {
+			throw new BusinessException("No Accounts found. Make sure you aporove your accounts with an Employee! " );
+		}
+		else {}
 		return userAccountInfoList;
 		}
 	

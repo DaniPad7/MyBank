@@ -53,6 +53,7 @@ public class AccountCreateDAOImpl implements AccountCreateDAO{
 			
 			c = preparedStatement.executeUpdate();
 			c0 = preparedStatement0.executeUpdate();
+			
 			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
 			log.info(e);
