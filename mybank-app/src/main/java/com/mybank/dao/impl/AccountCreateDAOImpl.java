@@ -11,6 +11,7 @@ import com.mybank.dao.AccountCreateDAO;
 import com.mybank.dao.dbutil.PostgresqlConnection;
 import com.mybank.exception.BusinessException;
 import com.mybank.model.UserAccountInfo;
+import com.mybank.model.UserBankHistory;
 import com.mybank.model.UserCorporateInfo;
 import com.mybank.model.UserPersonalInfo;
 
@@ -56,8 +57,8 @@ public class AccountCreateDAOImpl implements AccountCreateDAO{
 			
 			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
-			log.info(e);
-			throw new BusinessException("You are already registered with us. Internal error occured in IMPL");
+			log.info(e.getMessage());
+			throw new BusinessException("");
 		}
 		return c + c0;
 	}
@@ -65,7 +66,6 @@ public class AccountCreateDAOImpl implements AccountCreateDAO{
 	@Override
 	public int openNewAcc(UserPersonalInfo userPersonalInfoRead, UserAccountInfo userAccountInfo) throws BusinessException {
 		userAccountInfo.setAccountNumber();
-		log.info(userAccountInfo.getAccountType());
 		int c = 0;
 		try {
 			Connection connection = PostgresqlConnection.getConnection();
@@ -80,8 +80,41 @@ public class AccountCreateDAOImpl implements AccountCreateDAO{
 			c = preparedStatement.executeUpdate();
 			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
-			log.info(e);
-			throw new BusinessException("The account already exists. Internal error occured in IMPL");
+			log.info(e.getMessage());
+			throw new BusinessException("");
+		}
+		return c ;
+	}
+
+	@Override
+	public int withdrawOrDeposit(UserBankHistory userBankHistory, UserAccountInfo userApprovedAccountInfo) throws BusinessException {
+		int c = 0;
+		int c0 = 0;
+		try {
+			Connection connection = PostgresqlConnection.getConnection();
+			String sql = "INSERT INTO mybank.user_bank_history(user_id, routing_number, routing_number_dest, transaction_type, amount) VALUES(?,?,?,?,?::float8::numeric::money);"; 
+			String sql1 = "UPDATE mybank.user_account_info SET balance =  ?::float8::numeric::money WHERE routing_number = ?;";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+			
+			preparedStatement.setInt(1, userBankHistory.getUserId());
+			preparedStatement.setInt(2, userBankHistory.getRoutingNumber());
+			preparedStatement.setInt(3, userBankHistory.getRoutingNumberDest());
+			preparedStatement.setString(4, userBankHistory.getTransactionType());
+			preparedStatement.setDouble(5, userBankHistory.getAmount());
+			if(userBankHistory.getTransactionType().equals("Withdrawal")) {
+				preparedStatement1.setDouble(1, (userApprovedAccountInfo.getBalance() - userBankHistory.getAmount()));
+			}
+			else {
+				preparedStatement1.setDouble(1, (userApprovedAccountInfo.getBalance() + userBankHistory.getAmount()));
+			}
+			preparedStatement1.setInt(2, userApprovedAccountInfo.getRoutingNumber());
+			c = preparedStatement.executeUpdate();
+			c0 = preparedStatement1.executeUpdate();
+			connection.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			log.info(e.getMessage());
+			throw new BusinessException("");
 		}
 		return c ;
 	}

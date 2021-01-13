@@ -27,13 +27,6 @@ public class AccountUpdateServiceImpl implements AccountUpdateService{
 	}
 
 	@Override
-	public int withdrawOrDeposit() throws BusinessException {
-		return 0;
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void postTransfer() throws BusinessException {
 		// TODO Auto-generated method stub
 		

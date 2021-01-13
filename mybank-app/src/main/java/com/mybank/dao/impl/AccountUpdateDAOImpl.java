@@ -26,17 +26,10 @@ public class AccountUpdateDAOImpl implements AccountUpdateDAO{
 			c = preparedStatement.executeUpdate();
 		
 		} catch (ClassNotFoundException | SQLException e) {
-			log.info(e);
-			throw new BusinessException("Problem in UpdateDAOImpl");
+			log.info(e.getMessage());
+			throw new BusinessException("");
 		} 
 		return c;
-	}
-
-	@Override
-	public int withdrawOrDeposit() throws BusinessException {
-		return 0;
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

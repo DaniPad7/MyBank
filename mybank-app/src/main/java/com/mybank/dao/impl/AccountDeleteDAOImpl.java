@@ -26,8 +26,7 @@ public class AccountDeleteDAOImpl implements AccountDeleteDAO{
 				
 			connection.close();
 		}catch (ClassNotFoundException | SQLException e) {
-			log.info(e);
-			log.info("Problem in AccountDeleteDAO maybe. Also deelete ran");
+			log.info(e.getMessage());
 			}
 
 	}

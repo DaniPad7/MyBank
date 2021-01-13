@@ -125,10 +125,10 @@ public class UserPersonalInfo {
 
 	@Override
 	public String toString() {
-		return "UserPersonalInfo [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", birthdate=" + birthDate + ", email=" + email + ", phoneNumber=" + phoneNumber + ", countryId="
-				+ countryId + ", homeAddress=" + homeAddress + ", homeCity=" + homeCity + ", homeState=" + homeState
-				+ ", homeZipCode=" + homeZipCode + "]";
+		return "UserPersonalInfo [ID: " + userId + ", First Name: " + firstName + ", Last Name: " + lastName
+				+ ", Birthdate: " + birthDate + ", Email: " + email + ", Phone Number" + phoneNumber + ", Country ID:"
+				+ countryId + ", Address: " + homeAddress + ", City: " + homeCity + ", State: " + homeState
+				+ ", ZipCode: " + homeZipCode + "]";
 	}
 	
 	

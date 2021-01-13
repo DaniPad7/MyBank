@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -13,6 +14,7 @@ import com.mybank.service.impl.AccountReadServiceImpl;
 
 class AccountReadServiceImplTest {
 	private static AccountReadServiceImpl accountReadServiceImpl;
+	Logger log = Logger.getLogger(AccountReadServiceImpl.class);
 	
 	@BeforeAll
 	public static void setup() {
@@ -76,13 +78,24 @@ class AccountReadServiceImplTest {
 	assertThrows(BusinessException.class, executable);
 	}
 	
-	@Test
+	/*@Test
 	void testGetAccForException() {
 		
-	}
+	}*/
 	
 	@Test 
-	void testGetAccForNoQueryResult() {
+	void testGetAccForBusinessExceptionNoQueryResult() {
+		Executable executable = new Executable() {
+
+			@Override
+			public void execute() throws Throwable {
+				try {
+					accountReadServiceImpl.getAcc("NoResult");
+				} catch (BusinessException e) {
+					log.info(e);
+				}
+				}
+			};assertThrows(BusinessException.class, executable);
 		
 	}
 }

@@ -53,8 +53,8 @@ public class AccountReadDAOImpl implements AccountReadDAO{
 					throw new BusinessException("The username or password is incorrect. ");
 				}
 			} catch (ClassNotFoundException | SQLException e) {
-				log.info(e);
-				throw new BusinessException("Problem in DAOImpl");
+				log.info(e.getMessage());
+				throw new BusinessException("");
 			}
 			return userPersonalInfo;
 		}
@@ -83,8 +83,8 @@ public class AccountReadDAOImpl implements AccountReadDAO{
 				throw new BusinessException("The username or password is incorrect. ");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			log.info(e);
-			throw new BusinessException("Problem in userGetIsEmployee DAOImpl");
+			log.info(e.getMessage());
+			throw new BusinessException("");
 		}
 		return userCorporateInfo;
 	}
@@ -126,8 +126,8 @@ public class AccountReadDAOImpl implements AccountReadDAO{
 			}
 			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
-			log.info(e);
-			throw new BusinessException("Problem in userAcc DAOImpl");
+			log.info(e.getMessage());
+			throw new BusinessException("");
 		}
 		return userAccountInfoList;
 		
@@ -156,8 +156,8 @@ public class AccountReadDAOImpl implements AccountReadDAO{
 			}
 			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
-			log.info(e);
-			throw new BusinessException("Problem in userAcc2 DAOImpl");
+			log.info(e.getMessage());
+			throw new BusinessException("");
 		}
 		return userAccountInfoList;
 		

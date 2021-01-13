@@ -72,7 +72,7 @@ public class AccountReadServiceImpl implements AccountReadService{
 			throw new BusinessException("The password is invalid. Please try again.");
 		}
 		if(userAccountInfoList.size() == 0) {
-			throw new BusinessException("No Accounts found. Make sure you aporove your accounts with an Employee! " );
+			throw new BusinessException("No Accounts found. The approval of your accounts are still pending. " );
 		}
 		else {}
 		return userAccountInfoList;

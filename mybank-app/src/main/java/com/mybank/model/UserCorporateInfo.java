@@ -52,8 +52,8 @@ public class UserCorporateInfo {
 
 	@Override
 	public String toString() {
-		return "UserCorporateInfo [userId=" + userId + ", isEmployee=" + isEmployee + ", username=" + username
-				+ ", password=" + password + "]";
+		return "UserCorporateInfo [ID: " + userId + ", Employee: " + isEmployee + ", Username: " + username
+				+ ", Password: " + password + "]";
 	}
 	
 	

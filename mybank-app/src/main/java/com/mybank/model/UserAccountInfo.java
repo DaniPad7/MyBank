@@ -94,8 +94,8 @@ public class UserAccountInfo {
 
 	@Override
 	public String toString() {
-		return "UserAccountInfo [userId=" + userId + ", accountType=" + accountType + ", accountNumber=" + accountNumber
-				+ ", routingNumber=" + routingNumber + ", balance=" + balance + ", isApproved=" + isApproved + "]";
+		return "UserAccountInfo [ID: " + userId + ", Account: " + accountType + ", Account Number: " + accountNumber
+				+ ", Routing Number: " + routingNumber + ", Balance: " + balance + ", Approved: " + isApproved + "]";
 	}
 	
 	

@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -106,7 +108,7 @@ public class MyBankMain {
 												try {
 													approveEmployeeOption = Integer.parseInt(scanner.nextLine());
 												}catch(NumberFormatException e) {
-													log.info(e);
+													log.info(e.getMessage());
 												}
 												switch(approveEmployeeOption) {
 												case 1:
@@ -115,7 +117,7 @@ public class MyBankMain {
 													int routingNumber = Integer.parseInt(scanner.nextLine());
 													accountUpdateService.approveAcc(routingNumber);
 													}catch(NumberFormatException|BusinessException e) {
-														log.info(e);
+														log.info(e.getMessage());
 														log.info("Invalid option. Please try again.");
 													}
 													
@@ -171,9 +173,10 @@ public class MyBankMain {
 											try {
 												newCustomerAccountOptions = Integer.parseInt(scanner.nextLine());
 											}catch(NumberFormatException e) {}
+											
 											if(newCustomerAccountOptions == 1) {
 												userAccountInfo.setAccountType("Savings");
-												log.info("_____________Welcome to Your New "+ userAccountInfo.getAccountType() + " Account___________");
+												log.info("_____________Welcome to Your New "+ userAccountInfo.getAccountType() +" Account___________");
 												log.info("1) Enter Account Information");
 												log.info("51) Back");
 											}
@@ -201,7 +204,7 @@ public class MyBankMain {
 													try {
 													userAccountInfo.setBalance(Double.parseDouble(scanner.nextLine()));
 													}catch(NumberFormatException e) {
-														log.info(e);
+														log.info(e.getMessage());
 													}
 													if(userAccountInfo.getBalance() < 1_000_000 && userAccountInfo.getBalance() > -1)  {
 														accountCreateService.openNewAcc(userPersonalInfoRead,userAccountInfo);
@@ -215,7 +218,7 @@ public class MyBankMain {
 														break;
 													}
 												case 51:
-													log.info("Back");
+													log.info("You were directed back.");
 													break;
 												default:
 													log.info("Invalid option. Please try again.");
@@ -271,6 +274,7 @@ public class MyBankMain {
 												log.info("Enter the Routing Number of the Account: ");
 												int withdrawDepositRoutingNumber = Integer.parseInt(scanner.nextLine());
 													for(UserAccountInfo uai : approvedUserAccountInfoList) {
+														
 														if(uai.getRoutingNumber() == withdrawDepositRoutingNumber) {
 															log.info(uai);
 															userApprovedAccountInfo.setUserId(uai.getUserId());
@@ -294,67 +298,42 @@ public class MyBankMain {
 												log.info("1) Withdrawal");
 												log.info("2) Deposit");
 												log.info("52) Back");
-												
-													withdrawDepositAccountOption = Integer.parseInt(scanner.nextLine());
-												
+												try {
+												withdrawDepositAccountOption = Integer.parseInt(scanner.nextLine());
+												}catch(NumberFormatException e) {}
 												if(withdrawDepositAccountOption == 1) {
 													userBankHistory.setTransactionType("Withdrawal");
-													log.info("_____________Are you sure you would like to perform a  "+ userBankHistory.getTransactionType() +" ?___________");
-													log.info("1) Enter "+ userBankHistory.getTransactionType() + " Amount");
-													log.info("51) Back");
+													log.info("_____________How much would you like to Withdraw?___________");
+													
 												}
 												else if(withdrawDepositAccountOption == 2){
 													userBankHistory.setTransactionType("Deposit");
-													log.info("_____________Are you sure you would like to perform a " + userBankHistory.getTransactionType() + " ?___________");
-													log.info("1) Enter "+ userBankHistory.getTransactionType() + " Amount");
-													log.info("51) Back");
+													log.info("_____________How much would you like to " + userBankHistory.getTransactionType() + "?___________");
+													
 													withdrawDepositAccountOption = 1;
 													}
 												else {}
-												
+												userBankHistory.setAmount(0);
 												switch(withdrawDepositAccountOption) {
 												case 1:
-													int customerNewWithdrawDepositOption = 0;
-													do {
-														customerNewWithdrawDepositOption = Integer.parseInt(scanner.nextLine());
-														if(customerNewWithdrawDepositOption > 1 && customerNewWithdrawDepositOption < 51) {
-														customerNewWithdrawDepositOption = 0;
-													}
-													switch(customerNewWithdrawDepositOption) {
-													case 1:
-														while(userBankHistory.getAmount() < 1 && userBankHistory.getAmount() > 1_000_000) {
-															log.info("Enter the transaction amount: ");
-															userBankHistory.setAmount(Double.parseDouble(scanner.nextLine()));
+													while(userBankHistory.getAmount() < 1 || userBankHistory.getAmount() > 1_000_000) {
+															log.info("Enter the " + userBankHistory.getTransactionType() + " amount: ");
+															try {userBankHistory.setAmount(Double.parseDouble(scanner.nextLine()));
+															}catch(NumberFormatException e) {}
 														}
-														if((userBankHistory.getTransactionType().equals("Withdrawal") && (userApprovedAccountInfo.getBalance() - userBankHistory.getAmount()) > -1) || (userBankHistory.getTransactionType().equals("Deposit") && (userApprovedAccountInfo.getBalance() + userBankHistory.getAmount()) < 10_000_000))  {
-															//accountCreateService.openNewAcc(userPersonalInfoRead,userAccountInfo);
-						/***************************/									log.info("Your account was successfully created... Redirecting you back");
-															customerNewWithdrawDepositOption = 51;
-															break;
-														}
-														else {
-															log.info("The Account balance will be out of bounds after this transaction.");
-															//customerNewAccountOption = 1;
-															break;
-														}
-													case 51:
-														log.info("Back");
-														break;
-													default:
-														log.info("Invalid option. Please try again.");
-														log.info("1) Enter "+ userBankHistory.getTransactionType() + " Amount");
-														log.info("51) Back");
-														break;
-													}
-													} while(customerNewWithdrawDepositOption != 51);
-													case 52:	
-													log.info("");
+															accountCreateService.withdrawOrDeposit(userBankHistory,userApprovedAccountInfo);
+															/*accountcreateService.withdrawOrDeposit(userBankingHistory,userApprovedAccountInfo)*/
+													
+													withdrawDepositAccountOption = 52;
+													break;
+												case 52:	
+													log.info("You were directed back.");
 													break;
 												default:
 													log.info("Invalid option. Please try again.");
 													break;
 												}
-											}while(withdrawDepositAccountOption != 52);//<--last one was 55 so 54 --> 51
+											}while(withdrawDepositAccountOption != 52);
 											} catch (BusinessException|NumberFormatException e) {
 											log.info(e.getMessage());
 											log.info("Please try again.");
@@ -377,11 +356,11 @@ public class MyBankMain {
 							} 
 							else {}
 						}catch (BusinessException e1) {
-								log.info(e1);
+								log.info(e1.getMessage());
 						}
 						break;
 					case 67:
-						log.info("You decided to go back.");
+						log.info("You were directed back.");
 						break;
 					default:
 						log.info("Invalid input. Please try again.");
@@ -395,6 +374,7 @@ public class MyBankMain {
 				int signUpOption = 0;
 				UserPersonalInfo userPersonalInfo = new UserPersonalInfo();
 				UserCorporateInfo userCorporateInfo = new UserCorporateInfo();
+				
 				do {
 					log.info("__________________Sign Up_________________");
 					log.info("What would you like to sign up as:");
@@ -433,164 +413,159 @@ public class MyBankMain {
 						if(customerSignUpOption > 1 && customerSignUpOption < 54) { //the problem of switch end is here
 							customerSignUpOption = 0;
 						}
+						int i = 0;
 						switch(customerSignUpOption) {
-						case 1: //needs fixing
-							log.info("Enter your First Name: ");
-							userPersonalInfo.setFirstName(scanner.nextLine());
-							//log.info(userPersonalInfo.getFirstName());
-							//log.info(userPersonalInfo.getFirstName().matches("^[a-zA-Z]+$"));
-							if(userPersonalInfo.getFirstName().matches("^[a-zA-Z]+$")) {
-								customerSignUpOption = 2;
-								
-							}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 1;
-								break;
+						case 1: 
+							while(i < 1) {
+								log.info("Enter your First Name: ");
+								userPersonalInfo.setFirstName(scanner.nextLine());
+								if(userPersonalInfo.getFirstName().matches("^[a-zA-Z]+$")) {
+									i = 1;
 								}
+								else {
+									log.info("First name is Alphabetical. Please try again.");
+								}
+							}
 						case 2:
-							log.info("Enter your Last Name: ");
-							userPersonalInfo.setLastName(scanner.nextLine());
-							if(userPersonalInfo.getLastName().matches("^[a-zA-Z]+$")) {
-								customerSignUpOption = 3;
-								
-							}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 2;
-								break;
+							while(i < 2) {
+								log.info("Enter your Last Name: ");
+								userPersonalInfo.setLastName(scanner.nextLine());
+								if(userPersonalInfo.getLastName().matches("^[a-zA-Z]+$")) {
+									i = 2;
 								}
+								else {
+									log.info("Last name is Alphabetical. Please try again.");
+								}
+							}
 						case 3:
-							log.info("Enter your birthdate: ");
-							userPersonalInfo.setBirthDate(Date.valueOf(scanner.nextLine()));
-							if(userPersonalInfo.getBirthDate().toString().matches("^[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]+$")) {
-								customerSignUpOption = 4;
-								
+								while(i < 3) {
+								log.info("Enter your birthdate: ");
+								String dateValidator = scanner.nextLine();
+								if(dateValidator.matches("^[12]{1}[89012]{1}[0-9]{1}[0-9]{1}-[01]{1}[0-9]{1}-[0123]{1}[0-9]{1}+$")) {
+									userPersonalInfo.setBirthDate(Date.valueOf(dateValidator));
+									i = 3;
+								}
+								else {
+									log.info("Try the format \"yyyy-mm-dd\". Please try again.");
+								}
 							}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 3;
-								break;
-								}
-							case 4: //improve regex
-							log.info("Enter your phone number: ");
-							userPersonalInfo.setPhoneNumber(scanner.nextLine());
-							if(userPersonalInfo.getPhoneNumber().matches("^[0-9]{3}-[0-9]{3}-[0-9]{4}+$")) {
-								customerSignUpOption = 5;
-								}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 4;
-								break;
+							case 4:
+								while(i < 4) {
+									log.info("Enter your phone number: ");
+									userPersonalInfo.setPhoneNumber(scanner.nextLine());
+									if(userPersonalInfo.getPhoneNumber().matches("^[0-9]{3}-[0-9]{3}-[0-9]{4}+$") || userPersonalInfo.getPhoneNumber().isEmpty()) {
+										i = 4;
+									}
+									else {
+										log.info("Try the format \"000-000-0000\". Please try again.");
+									}
 								}
 						case 5:
-							log.info("Enter your email: ");
-							userPersonalInfo.setEmail(scanner.nextLine());
-							if(/*userPersonalInfo.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$" ||*/ userPersonalInfo.getEmail().isEmpty()) {
-								customerSignUpOption = 6;
+							while(i < 5) {
+								log.info("Enter your email: ");
+								userPersonalInfo.setEmail(scanner.nextLine());
+								if(userPersonalInfo.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$") || userPersonalInfo.getEmail().isEmpty() || userPersonalInfo.getEmail() == null) {
+									i = 5;
 								}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 5;
-								break;
+								else {
+									log.info("For example /'example12@gmail.com'/. Please try again.");
 								}
+							}
 						case 6:
-							log.info("Enter your Country:");
-							userPersonalInfo.setCountryId(Integer.parseInt(scanner.nextLine()));
-							if(userPersonalInfo.getCountryId() == 1) {
-								customerSignUpOption = 7;
+							while(i < 6) {
+								log.info("Enter your Country:");
+								userPersonalInfo.setCountryId(Integer.parseInt(scanner.nextLine()));
+								if(userPersonalInfo.getCountryId() == 1) {
+									i = 6;
 								}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 6;
-								break;
+								else {
+									log.info("Please input 1.");
 								}
+							}
 						case 7:
-							log.info("Enter your home address: ");
-							userPersonalInfo.setHomeAddress(scanner.nextLine());
-							if(userPersonalInfo.getHomeAddress().matches("^[a-zA-Z0-9]+$")) {
-								customerSignUpOption = 8;
+							while(i < 7) {
+								log.info("Enter your home address: ");
+								userPersonalInfo.setHomeAddress(scanner.nextLine());
+								if(userPersonalInfo.getHomeAddress().matches("^[a-zA-Z0-9]+$")) {
+									i = 7;
 								}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 7;
-								break;
+								else {
+									log.info("Invalid input. Please try again.");
 								}
+							}
 							case 8:
-							log.info("Enter yor home city: ");
-							userPersonalInfo.setHomeCity(scanner.nextLine());
-							if(userPersonalInfo.getHomeCity().matches("^[a-zA-Z]+$")) {
-								customerSignUpOption = 9;
-								}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 8;
-								break;
+								while(i < 8) {
+									log.info("Enter yor home city: ");
+									userPersonalInfo.setHomeCity(scanner.nextLine());
+									if(userPersonalInfo.getHomeCity().matches("^[a-zA-Z]+$")) {
+										i = 8;
+									}
+									else {
+										log.info("Invalid input. Please try again.");
+									}
 								}
 						case 9:
-							log.info("Enter your home state: ");
-							userPersonalInfo.setHomeState(scanner.nextLine());
-							if(userPersonalInfo.getHomeState().matches("^[A-Z]{2}+$")) {
-								customerSignUpOption = 10;
+							while(i < 9) {
+								log.info("Enter your home state: ");
+								userPersonalInfo.setHomeState(scanner.nextLine());
+								if(userPersonalInfo.getHomeState().matches("^[A-Z]{2}+$")) {
+									i = 9;
 								}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 9;
-								break;
+								else {
+									log.info("Try the Format \"AA\". Please try again.");
 								}
+							}
 						case 10:
-							log.info("Enter your home zipcode: ");
-							userPersonalInfo.setHomeZipCode(scanner.nextLine());
-							if(userPersonalInfo.getHomeZipCode().matches("^[0-9]{5}+$")) {
-								log.info("Great! Now you can create a USERNAME and Password.");
-								customerSignUpOption = 11;
+							while(i < 10) {
+								log.info("Enter your home zipcode: ");
+								userPersonalInfo.setHomeZipCode(scanner.nextLine());
+								if(userPersonalInfo.getHomeZipCode().matches("^[0-9]{5}+$")) {
+									i = 10;
+									log.info("Great! Now you can create a Username and Password.");
 								}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 10;
-								break;
+								else {
+									log.info("Try the format /'00000'/. Please try again.");
 								}
+							}
 						case 11:
-							log.info("Enter your username: ");
-							userCorporateInfo.setUsername(scanner.nextLine());
-							if(userCorporateInfo.getUsername().matches("^[a-zA-Z0-9]+$")) {
-								customerSignUpOption = 12;
+							while(i < 11) {
+								log.info("Enter your username: ");
+								userCorporateInfo.setUsername(scanner.nextLine());
+								if(userCorporateInfo.getUsername().matches("^[a-zA-Z0-9]+$")) {
+									i = 11;
 								}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 11;
-								break;
+								else {
+									log.info("The username is Alphanumeric. Please try again.");
 								}
+							}
 						case 12:
-							log.info("Enter your password: ");
-							userCorporateInfo.setPassword(scanner.nextLine());
-							if(userCorporateInfo.getUsername().matches("^[a-zA-Z0-9]+$")) {
-								log.info("Attempting connection...");
-								try {
-									accountCreateService.regiCustomerAccount(userPersonalInfo, userCorporateInfo);
-									log.info("Congratulations, you were registered with us. You will now be redirected back to the Sign Up menu.");
-								} catch (BusinessException e) {
-									log.info(e);
+							while(i < 12) {
+								log.info("Enter your password: ");
+								userCorporateInfo.setPassword(scanner.nextLine());
+								if(userCorporateInfo.getUsername().matches("^[a-zA-Z0-9]+$")) {
 									try {
-										accountDeleteService.deleteMaxUserIdFromUserPersonalInfo();
-									} catch (BusinessException e1) {
-										log.info(e1);
-									}
-									}
-								customerSignUpOption = 54;
-								break;
+										accountCreateService.regiCustomerAccount(userPersonalInfo, userCorporateInfo);
+										log.info("Congratulations, you were registered with us. You will now be redirected back to the Sign Up menu.");
+									} catch (BusinessException e) {
+										log.info(e.getMessage());
+										try {
+											accountDeleteService.deleteMaxUserIdFromUserPersonalInfo();
+										} catch (BusinessException e1) {
+											log.info(e1.getMessage());
+										}
+										}
+										i = 12;
 								}
-							else {
-								log.info("Invalid input. Please try again.");
-								customerSignUpOption = 12;
-								break;
+								else {
+									log.info("The password is Alphanumeric. Please try again.");
 								}
+							}
 						case 54:
-							log.info("You decided to go back");
-							//customerSignUpOption = 54;
+							log.info("You were directed back");
+							customerSignUpOption = 54;
 							break;
-						default:
-							log.info("Invalid option. Please try again.");
+							default:
+							log.info("_____________Welcome to MyBank___________");
 							log.info("1) Enter Personal Information");
 							log.info("54) Back");
 							break;
@@ -605,9 +580,8 @@ public class MyBankMain {
 						break;
 					}
 				}while(signUpOption != 55);
-				//end of encapsulation
 				case 55:
-				log.info("You decided to go back.");
+				log.info("You were directed back.");
 				break;
 			case 56:
 				log.info("OK Have a nice day.");
@@ -617,10 +591,5 @@ public class MyBankMain {
 				break;
 			}
 			}while(option != 56);
-		/*try {
-			int b = accountCreateService.regiCustomerAccount(firstUser, firstUserC);
-		} catch (BusinessException e) {
-			log.info(e);
-		}*/
 		}
 }
