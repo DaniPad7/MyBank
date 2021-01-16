@@ -57,7 +57,7 @@ public class AccountReadServiceImpl implements AccountReadService{
 			throw new BusinessException("The first or last name is invalid. Please try again.");
 		}
 		if(userAccountInfoList.size() == 0) {
-			throw new BusinessException("No customers found. " );
+			throw new BusinessException("No customers found or customer does not have unapproved accounts. " );
 		}
 		else {}
 		

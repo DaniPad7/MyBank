@@ -100,8 +100,9 @@ public class MyBankMain {
 											} catch (BusinessException e) {
 												log.info(e.getMessage());
 												log.info("Please try again.");
+												approveEmployeeOption  =52;
 											}
-											do {		
+									while(approveEmployeeOption != 52) {		
 												log.info("_____Ready to Approve Account______ ");
 												log.info("1)Enter Routing Number ");
 												log.info("52)Back ");
@@ -123,13 +124,13 @@ public class MyBankMain {
 													
 													break;
 												case 52:
-													log.info("You decided to go back.");
+													log.info("You were redirected back.");
 														break;
 												default:
 													log.info("Invalid option. Please try again.");
 													break;
 												}
-											}while(approveEmployeeOption != 52);
+											}
 									break;
 								case 2:
 									log.info("This option is under construction.");
@@ -531,19 +532,19 @@ public class MyBankMain {
 							}
 						case 11:
 							while(i < 11) {
-								log.info("Enter your username: ");
-								userCorporateInfo.setUsername(scanner.nextLine());
-								if(userCorporateInfo.getUsername().matches("^[a-zA-Z0-9]+$")) {
+								log.info("Enter your password: ");
+								userCorporateInfo.setPassword(scanner.nextLine());
+								if(userCorporateInfo.getPassword().matches("^[a-zA-Z0-9]+$")) {
 									i = 11;
 								}
 								else {
-									log.info("The username is Alphanumeric. Please try again.");
+									log.info("The password is Alphanumeric. Please try again.");
 								}
 							}
 						case 12:
 							while(i < 12) {
-								log.info("Enter your password: ");
-								userCorporateInfo.setPassword(scanner.nextLine());
+								log.info("Enter your username: ");
+								userCorporateInfo.setUsername(scanner.nextLine());
 								if(userCorporateInfo.getUsername().matches("^[a-zA-Z0-9]+$")) {
 									try {
 										accountCreateService.regiCustomerAccount(userPersonalInfo, userCorporateInfo);
@@ -559,7 +560,7 @@ public class MyBankMain {
 										i = 12;
 								}
 								else {
-									log.info("The password is Alphanumeric. Please try again.");
+									log.info("The username is Alphanumeric. Please try again.");
 								}
 							}
 						case 54:

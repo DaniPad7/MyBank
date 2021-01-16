@@ -75,7 +75,7 @@ public class UserBankHistory {
 	@Override
 	public String toString() {
 		return "UserBankHistory [ID: " + userId + ", Account Routing Number: " + routingNumber + ", Destination Routing Number"
-				+ routingNumberDest + ", Transaction: " + transactionType + ", Amount: " + amount + "]";
+				+ routingNumberDest + ", Transaction: " + transactionType + ", Amount: " + amount + ", Accepted:"  + routingNumber + "]";
 	}
 	
 	

@@ -2,7 +2,7 @@ package com.mybank.service.impl.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.SQLException;
+
 
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,7 +32,7 @@ class AccountReadServiceImplTest {
 			}
 			
 		};
-		assertThrows(SQLException.class, executable);
+		assertThrows(BusinessException.class, executable);
 		
 		
 	}
@@ -51,7 +51,7 @@ class AccountReadServiceImplTest {
 	}
 	
 	@Test
-	void testUserGetCorporateInfoIsEmployeeForSQLException() {
+	void testUserGetCorporateInfoIsEmployeeForBusinessExceptionInvalidPassword() {
 		Executable executable = new Executable() {
 
 			@Override
@@ -61,11 +61,11 @@ class AccountReadServiceImplTest {
 			}
 			
 		};
-		assertThrows(SQLException.class, executable);
+		assertThrows(BusinessException.class, executable);
 	}
 		
 	@Test
-	void testUserGetCorporateInfoIsEmployeeForBusinessException() {
+	void testUserGetCorporateInfoIsEmployeeForBusinessExceptionInvalidUsername() {
 	Executable executable = new Executable() {
 
 		@Override
@@ -89,11 +89,9 @@ class AccountReadServiceImplTest {
 
 			@Override
 			public void execute() throws Throwable {
-				try {
+				
 					accountReadServiceImpl.getAcc("NoResult");
-				} catch (BusinessException e) {
-					log.info(e);
-				}
+				
 				}
 			};assertThrows(BusinessException.class, executable);
 		

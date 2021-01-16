@@ -2,10 +2,10 @@ package com.mybank.service.impl.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -28,18 +28,18 @@ Logger log = Logger.getLogger(AccountUpdateServiceImplTest.class);
 	}
 	
 	
-	@Test
-	void testApproveAccForReturnOne() {
-		routingNumber = 1;
+	/*@Test
+	void testApproveAccForReturnOneAlreadyUpdatedApproval() {
+		routingNumber = 9;
 		try {
 			assertEquals(1, accountUpdateServiceImpl.approveAcc(routingNumber));
 		} catch (BusinessException e) {
 			log.info(e);
 		}
-	}
+	}*/
 	
 	@Test
-	void testApproveAccForReturnZero() {
+	void testApproveAccForReturnZeroDidNothing() {
 		routingNumber = 1;
 		try {
 			assertEquals(0, accountUpdateServiceImpl.approveAcc(routingNumber));
@@ -49,7 +49,7 @@ Logger log = Logger.getLogger(AccountUpdateServiceImplTest.class);
 	}
 	
 	@Test
-	void testApproveAccForBusinessException() {
+	void testApproveAccForBusinessExceptionInvalidRoutingNumber() {
 		routingNumber = -3443;
 		Executable executable = new Executable() {
 

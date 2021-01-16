@@ -2,6 +2,7 @@ package com.mybank.service.impl.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -9,19 +10,20 @@ import org.junit.jupiter.api.function.Executable;
 
 import com.mybank.exception.BusinessException;
 import com.mybank.service.AccountDeleteService;
+import com.mybank.service.impl.AccountDeleteServiceImpl;
 
 class AccountDeleteServiceImplTest {
 	Logger log = Logger.getLogger(AccountDeleteServiceImplTest.class);
-	AccountDeleteService accountDeleteServiceImpl;
+	private static AccountDeleteService accountDeleteServiceImpl;
 
 	@BeforeAll
 	public static void setup() {
-		
+		accountDeleteServiceImpl = new AccountDeleteServiceImpl();
 	}
 	
 	
 	@Test
-	void testDeleteMaxUserIdFromUserPersonalInfoForBusinessExceptionDueToForeignKeyViolation() {
+	void testDeleteMaxUserIdFromUserPersonalInfoForExceptionDueToForeignKeyViolation() {
 		Executable executable = new Executable() {
 
 			@Override
@@ -34,7 +36,7 @@ class AccountDeleteServiceImplTest {
 				
 			}
 			
-		}; assertThrows(BusinessException.class, executable);
+		}; assertDoesNotThrow(executable);
 		
 	}
 
