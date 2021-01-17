@@ -122,4 +122,45 @@ public class AccountCreateDAOImpl implements AccountCreateDAO{
 		return c + c0;
 		}
 
+	@Override
+	public int postTransfer(UserBankHistory userBankHistory, UserAccountInfo userApprovedAccountInfo, UserAccountInfo userApprovedAccountInfoDest) throws BusinessException {
+		int c = 0;
+		int c0 = 0;
+		int c1 = 0;
+		try {
+			
+			Connection connection = PostgresqlConnection.getConnection();
+			String sql = "INSERT INTO mybank.user_bank_history(user_id, routing_number, routing_number_dest, transaction_type, amount, is_accepted) VALUES(?,?,?,?,?::float8::numeric::money,?);"; 
+			String sql1 = "UPDATE mybank.user_account_info SET balance =  ?::float8::numeric::money WHERE routing_number = ?;";
+			String sql2 = "UPDATE mybank.user_account_info SET balance =  ?::float8::numeric::money WHERE routing_number = ?;";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+			PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
+			
+			preparedStatement.setInt(1, userBankHistory.getUserId());
+			preparedStatement.setInt(2, userBankHistory.getRoutingNumber());
+			preparedStatement.setInt(3, userBankHistory.getRoutingNumberDest());
+			preparedStatement.setString(4, userBankHistory.getTransactionType());
+			preparedStatement.setDouble(5, userBankHistory.getAmount());
+			preparedStatement.setBoolean(6, userBankHistory.getIsAccepted());
+			
+			preparedStatement1.setDouble(1, (userApprovedAccountInfo.getBalance() - userBankHistory.getAmount()));
+			preparedStatement1.setInt(2, userApprovedAccountInfo.getRoutingNumber());
+			
+			preparedStatement2.setDouble(1, (userApprovedAccountInfoDest.getBalance() + userBankHistory.getAmount()));
+			preparedStatement2.setInt(2, userApprovedAccountInfoDest.getRoutingNumber());
+			
+			c = preparedStatement.executeUpdate();
+			c0 = preparedStatement1.executeUpdate();
+			c1 = preparedStatement2.executeUpdate();
+			connection.close();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			log.info(e.getMessage());
+			throw new BusinessException("");
+		}
+		return c + c0 + c1;
+		
+	}
+
 }

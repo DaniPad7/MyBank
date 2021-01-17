@@ -33,12 +33,6 @@ public class AccountUpdateDAOImpl implements AccountUpdateDAO{
 	}
 
 	@Override
-	public void postTransfer() throws BusinessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void acceptTransfer() throws BusinessException {
 		// TODO Auto-generated method stub
 		

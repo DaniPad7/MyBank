@@ -11,4 +11,5 @@ public interface AccountCreateDAO {
 	public int regiCustomerAccount(UserPersonalInfo userPersonalInfo, UserCorporateInfo userCorporateInfo) throws BusinessException;
 	public int openNewAcc(UserPersonalInfo userPersonalInfoRead, UserAccountInfo userAccountInfo) throws BusinessException;
 	public int withdrawOrDeposit(UserBankHistory userBankHistory, UserAccountInfo userApprovedAccountInfo) throws BusinessException;
+	public int postTransfer(UserBankHistory userBankHistory, UserAccountInfo userApprovedAccountInfo, UserAccountInfo userApprovedAccountInfoDest ) throws BusinessException;
 }

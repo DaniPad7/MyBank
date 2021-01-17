@@ -26,11 +26,6 @@ public class AccountUpdateServiceImpl implements AccountUpdateService{
 		return c;
 	}
 
-	@Override
-	public void postTransfer() throws BusinessException {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void acceptTransfer() throws BusinessException {

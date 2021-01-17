@@ -153,7 +153,7 @@ public class MyBankMain {
 								do {
 									log.info("Hello " + userPersonalInfoRead.getFirstName() + "! As a customer, what would you like to do today. ");
 									log.info("1) Open A New Account");
-									log.info("2) Retrieve Account Information");
+									log.info("2) Retrieve Account Information");//this might retrieve accounts with ssahred password
 									log.info("3) Withdraw/Deposit");
 									log.info("4) Transfer Account Balance");
 									log.info("5) Accept/Reject Transfer");
@@ -342,7 +342,13 @@ public class MyBankMain {
 										}
 										break;
 									case 4:
-										log.info("This option is under construction.");
+										UserAccountInfo  userApprovedAccountInfoDest = new UserAccountInfo();
+										UserAccountInfo userApprovedAccountInfoInitial = new UserAccountInfo();
+										UserBankHistory userBankHistoryTransfer = new UserBankHistory();
+										int postTransferAccountOption = 0;
+										log.info("In order to Transfer an amount, enter your username again: ");// Introduce getAcc() by username and complement with password.
+										String passwordAgain1 = scanner.nextLine();
+										//introduce username & password complements here
 										break;
 									case 5:
 										log.info("This option is under construction.");

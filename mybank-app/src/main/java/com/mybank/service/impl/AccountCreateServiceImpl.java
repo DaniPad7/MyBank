@@ -62,4 +62,22 @@ public class AccountCreateServiceImpl implements AccountCreateService{
 		return c;
 	}
 
+	@Override
+	public int postTransfer(UserBankHistory userBankHistory, UserAccountInfo userApprovedAccountInfo,
+			UserAccountInfo userApprovedAccountInfoDest) throws BusinessException {
+		int c = 0;
+		if(userApprovedAccountInfo.getBalance() - userBankHistory.getAmount() > -1 && userApprovedAccountInfoDest.getBalance() + userBankHistory.getAmount() < 10_000_000){
+			c = accountCreateDAO.postTransfer(userBankHistory,userApprovedAccountInfo, userApprovedAccountInfoDest);
+			if(c != 0 && userBankHistory != null && userApprovedAccountInfo != null && userApprovedAccountInfoDest != null) {
+				log.info("Transaction success. Redirecting you back.");
+			}
+			else {
+				throw new BusinessException("");
+			}
+		}else {
+			throw new BusinessException("The Account balance will be out of bounds after this transaction.");
+		}
+		return c;
+	}
+
 }

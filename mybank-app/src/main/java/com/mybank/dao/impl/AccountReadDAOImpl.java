@@ -133,6 +133,7 @@ public class AccountReadDAOImpl implements AccountReadDAO{
 		
 	}
 	
+	@Override
 	public List<UserAccountInfo> getAcc(String password) throws BusinessException {
 		List<UserAccountInfo> userAccountInfoList= new ArrayList<>();
 		Connection connection;
@@ -160,6 +161,12 @@ public class AccountReadDAOImpl implements AccountReadDAO{
 			throw new BusinessException("");
 		}
 		return userAccountInfoList;
+		
+	}
+	
+	@Override
+	public List<UserAccountInfo> getAccByCorp(String username, String password) throws BusinessException {
+		return null;
 		
 	}
 
