@@ -165,8 +165,34 @@ public class AccountReadDAOImpl implements AccountReadDAO{
 	}
 	
 	@Override
-	public List<UserAccountInfo> getAccByCorp(String username, String password) throws BusinessException {
-		return null;
+	public List<UserAccountInfo> getApprovedAccByCorp(String username, String password) throws BusinessException {
+		List<UserAccountInfo> userAccountInfoList= new ArrayList<>();
+		Connection connection;
+		try {
+			connection = PostgresqlConnection.getConnection();
+			String sql = "select user_id, account_type, account_number, balance::money::numeric::float8, is_approved, routing_number from mybank.user_account_info where user_id in \r\n"
+					+ "(select user_id from mybank.user_corp_info where username = ? and password = ?);";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				UserAccountInfo userAccountInfo = new UserAccountInfo();
+				userAccountInfo.setUserId(resultSet.getInt("user_id"));
+				userAccountInfo.setAccountType(resultSet.getString("account_type"));
+				userAccountInfo.setAccountNumber(resultSet.getInt("account_number"));
+				userAccountInfo.setBalance(resultSet.getDouble("balance"));
+				userAccountInfo.setApproved(resultSet.getBoolean("is_approved"));
+				userAccountInfo.setRoutingNumber(resultSet.getInt("routing_number"));
+				userAccountInfoList.add(userAccountInfo);
+				
+			}
+			connection.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			log.info(e.getMessage());
+			throw new BusinessException("");
+		}
+		return userAccountInfoList;
 		
 	}
 

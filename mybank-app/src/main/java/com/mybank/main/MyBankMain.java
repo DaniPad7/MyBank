@@ -346,9 +346,11 @@ public class MyBankMain {
 										UserAccountInfo userApprovedAccountInfoInitial = new UserAccountInfo();
 										UserBankHistory userBankHistoryTransfer = new UserBankHistory();
 										int postTransferAccountOption = 0;
-										log.info("In order to Transfer an amount, enter your username again: ");// Introduce getAcc() by username and complement with password.
+										log.info("In order to Transfer an amount, enter your username again: ");
+										String usernameAgain = scanner.nextLine();
+										log.info("In order to Transfer an amount, enter your password again: ");
 										String passwordAgain1 = scanner.nextLine();
-										//introduce username & password complements here
+										List<UserAccountInfo> approvedUserAccountInfoList = accountReadService.getApprovedAccByCorp(usernameAgain, passwordAgain1);//Continue here, you should implement if statement
 										break;
 									case 5:
 										log.info("This option is under construction.");

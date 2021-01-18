@@ -1,6 +1,9 @@
 package com.mybank.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import com.mybank.dao.AccountReadDAO;
 import com.mybank.dao.impl.AccountReadDAOImpl;
@@ -12,6 +15,7 @@ import com.mybank.service.AccountReadService;
 
 public class AccountReadServiceImpl implements AccountReadService{
 	private AccountReadDAO accountReadDAO = new AccountReadDAOImpl();
+	Logger log = Logger.getLogger(AccountReadServiceImpl.class);
 
 	@Override
 	public UserPersonalInfo userLogin(String username, String password) throws BusinessException {
@@ -77,6 +81,37 @@ public class AccountReadServiceImpl implements AccountReadService{
 		else {}
 		return userAccountInfoList;
 		}
+
+
+	@Override
+	public List<UserAccountInfo> getApprovedAccByCorp(String username, String password) throws BusinessException {
+		List<UserAccountInfo> userAccountInfoList = null;
+		List<UserAccountInfo> approvedUserAccountInfoList = new ArrayList<>();
+		if(username.matches("^[a-zA-Z0-9]+$") && password.matches("^[a-zA-Z0-9]+$")) {
+			userAccountInfoList = accountReadDAO.getApprovedAccByCorp(username, password);	}
+		else {
+			throw new BusinessException("The username or password is invalid. Please try again.");
+		}
+		if(userAccountInfoList != null && userAccountInfoList.size() > 0) {
+			log.info("Your approved accounts are printed below:");
+			for(UserAccountInfo uai : userAccountInfoList) {
+				if(uai.isApproved()) {
+					log.info(uai);
+					approvedUserAccountInfoList.add(uai);
+				}
+				}
+			if(approvedUserAccountInfoList.size() == 0) {
+				throw new BusinessException("The customer either has pending or non approved accounts.");
+			}
+			
+		}
+		else if(userAccountInfoList.size() == 0) {
+			throw new BusinessException("No customers found or customer does not have unapproved accounts. " );
+		}
+		else {}
+		
+		return approvedUserAccountInfoList;
+	}
 	
 
 	

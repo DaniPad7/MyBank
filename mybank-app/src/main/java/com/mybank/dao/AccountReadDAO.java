@@ -15,7 +15,7 @@ public interface AccountReadDAO {
 	public void getLogsOfCustomer() throws BusinessException;
 	public List<UserAccountInfo> getAcc(String firstName, String lastName) throws BusinessException;
 	public List<UserAccountInfo> getAcc(String password) throws BusinessException;
-	public List<UserAccountInfo> getAccByCorp(String username, String password) throws BusinessException;
+	public List<UserAccountInfo> getApprovedAccByCorp(String username, String password) throws BusinessException;
 	
 
 }

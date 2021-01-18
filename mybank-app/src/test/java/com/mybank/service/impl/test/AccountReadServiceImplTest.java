@@ -96,4 +96,35 @@ class AccountReadServiceImplTest {
 			};assertThrows(BusinessException.class, executable);
 		
 	}
+	
+	@Test
+	void testGetApprovedAccByCorpBusinessExceptionForInvalidUsername() {
+		Executable executable = new Executable() {
+
+			@Override
+			public void execute() throws Throwable {
+				String username1 = "FYHUD##@Y884";
+				String password1 = "Helow";
+				
+					accountReadServiceImpl.getApprovedAccByCorp(username1 ,password1);
+				
+				}
+			};assertThrows(BusinessException.class, executable);
+	}
+	
+	@Test
+	void testGetApprovedAccByCorpBusinessExceptionForNoAccounts() {
+		Executable executable = new Executable() {
+
+			@Override
+			public void execute() throws Throwable {
+				String username2 = "nsddes";
+				String password2 = "rgrdgr4t4";
+					accountReadServiceImpl.getApprovedAccByCorp(username2, password2);
+				
+				}
+			};assertThrows(BusinessException.class, executable);
+	}
+	
+	
 }

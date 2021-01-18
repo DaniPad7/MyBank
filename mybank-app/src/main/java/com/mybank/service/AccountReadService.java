@@ -15,5 +15,6 @@ public interface AccountReadService {
 	public void getLogsOfCustomer() throws BusinessException;
 	public List<UserAccountInfo> getAcc(String firstName, String lastName) throws BusinessException;
 	public List<UserAccountInfo> getAcc(String password) throws BusinessException;
+	public List<UserAccountInfo> getApprovedAccByCorp(String username, String password) throws BusinessException;
 
 }
