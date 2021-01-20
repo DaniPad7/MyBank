@@ -119,4 +119,14 @@ class AccountCreateServiceImplTest {
 		};
 		assertThrows(BusinessException.class, executable);
 	} 
+	
+	/*@Test
+	void testPostTransfer1() {
+		
+	}
+	
+	@Test
+	void testPostTransfer2() {
+		
+	}*/
 }

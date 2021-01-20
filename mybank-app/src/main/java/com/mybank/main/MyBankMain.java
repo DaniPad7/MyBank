@@ -350,7 +350,71 @@ public class MyBankMain {
 										String usernameAgain = scanner.nextLine();
 										log.info("In order to Transfer an amount, enter your password again: ");
 										String passwordAgain1 = scanner.nextLine();
-										List<UserAccountInfo> approvedUserAccountInfoList = accountReadService.getApprovedAccByCorp(usernameAgain, passwordAgain1);//Continue here, you should implement if statement
+										try {
+											List<UserAccountInfo> approvedUserAccountInfoList = accountReadService.getApprovedAccByCorp(usernameAgain, passwordAgain1);	
+											if(approvedUserAccountInfoList.size() > 1) {
+												int choseExistingRoutingNumber0 = 1;
+												while(choseExistingRoutingNumber0  == 1){
+												log.info("Enter the Routing Number of the Account: ");
+												int withdrawDepositRoutingNumber = Integer.parseInt(scanner.nextLine());
+													for(UserAccountInfo uai : approvedUserAccountInfoList) {
+														
+														if(uai.getRoutingNumber() == withdrawDepositRoutingNumber) {
+															log.info(uai);
+															userApprovedAccountInfoInitial.setUserId(uai.getUserId());
+															userApprovedAccountInfoInitial.setAccountType(uai.getAccountType());
+															userApprovedAccountInfoInitial.setAccountNumber(uai.getAccountNumber());
+															userApprovedAccountInfoInitial.setRoutingNumber(uai.getRoutingNumber());
+															userApprovedAccountInfoInitial.setBalance(uai.getBalance());
+															userApprovedAccountInfoInitial.setApproved(uai.isApproved());
+															
+															choseExistingRoutingNumber0 = 0;
+														}
+														}
+												}
+												int choseExistingRoutingNumber1 = 1;
+												while(choseExistingRoutingNumber1  == 1){
+												log.info("Enter the Routing Number of the Destination Account: ");
+												int withdrawDepositDestRoutingNumber = Integer.parseInt(scanner.nextLine());
+													for(UserAccountInfo uai : approvedUserAccountInfoList) {
+														
+														if(uai.getRoutingNumber() == withdrawDepositDestRoutingNumber && uai.getRoutingNumber() != userApprovedAccountInfoInitial.getRoutingNumber()) {
+															log.info(uai);
+															userApprovedAccountInfoDest.setUserId(uai.getUserId());
+															userApprovedAccountInfoDest.setAccountType(uai.getAccountType());
+															userApprovedAccountInfoDest.setAccountNumber(uai.getAccountNumber());
+															userApprovedAccountInfoDest.setRoutingNumber(uai.getRoutingNumber());
+															userApprovedAccountInfoDest.setBalance(uai.getBalance());
+															userApprovedAccountInfoDest.setApproved(uai.isApproved());
+															
+															choseExistingRoutingNumber1 = 0;
+														}
+														else {
+															log.info("Invalid input. Please try again.");
+														}
+														}
+												}
+												userBankHistoryTransfer.setUserId(userApprovedAccountInfoInitial.getUserId());
+												userBankHistoryTransfer.setRoutingNumber(userApprovedAccountInfoInitial.getRoutingNumber());
+												userBankHistoryTransfer.setRoutingNumberDest(userApprovedAccountInfoDest.getRoutingNumber());
+												userBankHistoryTransfer.setAccepted(false);
+												userBankHistoryTransfer.setTransactionType("Transfer");
+												userBankHistoryTransfer.setAmount(0);
+												do {
+													log.info("_____________How much would you like to " + userBankHistoryTransfer.getTransactionType() + "?___________");
+													log.info("Enter the amount to " + userBankHistoryTransfer.getTransactionType() + " from Account " + userApprovedAccountInfoInitial.getAccountNumber() + "to Account " + userApprovedAccountInfoDest.getAccountNumber());
+													try {
+														userBankHistoryTransfer.setAmount(Double.parseDouble(scanner.nextLine()));
+													}catch(NumberFormatException e) {}
+												}while(userBankHistoryTransfer.getAmount() < 1 || userBankHistoryTransfer.getAmount() > 1_000_000);
+												accountCreateService.postTransfer(userBankHistoryTransfer, userApprovedAccountInfoInitial, userApprovedAccountInfoDest);
+											}
+											else {
+												log.info("You only have one approved account open.");
+											}
+										}catch(BusinessException e) {
+											log.info(e.getMessage());
+										}
 										break;
 									case 5:
 										log.info("This option is under construction.");
