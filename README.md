@@ -10,6 +10,7 @@
 <li>Postgresql</li>
 <li>JUnit</li>
 <li>Log4j</li>
+  <li>Git/Github</li>
 </ul>
 <h2>Features</h2>
 <h3>List of Features</h3>
