@@ -34,3 +34,5 @@
 <li>Create a new Maven Project and choose to open the git clone.</li>
 <li>Run using an IDE or command prompt.</li>
 </ul>
+<h2>Licenses</h2> <a href="https://opensource.org/licenses/MIT"/>
+<a href="https://www.apache.org/licenses/"/>
