@@ -32,7 +32,7 @@
 <li>Install JDK version 1.8 locally and a Java IDE.</li>
 <li>Git clone this repository.</li>
 <li>Create a new Maven Project and choose to open the git clone.</li>
-<li>Run using an IDE or command prompt.</li>
+<li>Run using an IDE or a terminal.</li>
 </ul>
 <h2>Licenses</h2>
 <p><a href="https://opensource.org/licenses/MIT">https://opensource.org/licenses/MIT</a></p>
